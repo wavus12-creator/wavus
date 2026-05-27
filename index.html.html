@@ -1,0 +1,1494 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SOUND STUDIO</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+KR:wght@300;400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f5f2ee;
+  --white: #ffffff;
+  --black: #111111;
+  --lime: #c8f135;
+  --orange: #ff6b35;
+  --blue: #3b5bdb;
+  --pink: #ff4d8d;
+  --text: #111111;
+  --muted: #888888;
+  --card: #ffffff;
+  --border: #e8e4df;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Plus Jakarta Sans', 'Noto Sans KR', sans-serif;
+  overflow-x: hidden;
+}
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 40px;
+  background: rgba(10,10,10,0.95);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+.nav-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 20px; letter-spacing: 0.1em; vertical-align: middle;
+  color: rgba(255,255,255,0.7); text-decoration: none;
+  display: flex; align-items: center; gap: 10px;
+}
+.nav-logo span {
+  display: none;
+}
+.nav-links { display: flex; gap: 32px; list-style: none; }
+.nav-links a {
+  font-size: 14px; font-weight: 500;
+  color: rgba(255,255,255,0.45); text-decoration: none;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--white); }
+.nav-cta {
+  background: var(--lime); color: var(--black);
+  padding: 10px 22px; border-radius: 100px;
+  font-size: 13px; font-weight: 700;
+  text-decoration: none; transition: background 0.2s, transform 0.2s;
+}
+.nav-cta:hover { background: var(--white); transform: scale(1.04); }
+
+/* HERO */
+#hero {
+  height: 100vh;
+  padding: 100px 40px 60px;
+  display: flex; flex-direction: column; justify-content: center;
+  position: relative; overflow: hidden;
+}
+.hero-tag {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: 100px; padding: 8px 16px;
+  font-size: 13px; font-weight: 500; color: var(--muted);
+  margin-bottom: 16px; width: fit-content;
+
+}
+.hero-tag .dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--lime); border: 2px solid var(--black);
+  animation: blink 1.5s ease infinite;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+.hero-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(60px, 10vw, 140px);
+  line-height: 0.9; letter-spacing: 0.01em;
+  margin-bottom: 12px;
+}
+.hero-title .highlight {
+  color: var(--orange);
+  display: inline-block;
+  animation: wobble 3s ease-in-out infinite;
+}
+@keyframes wobble {
+  0%,100% { transform: rotate(-1deg); }
+  50% { transform: rotate(1deg); }
+}
+.hero-title .tag-pill {
+  display: inline-block;
+  background: var(--lime); color: var(--black);
+  border-radius: 16px; padding: 0 24px;
+  font-size: clamp(34px, 5vw, 72px);
+  transform: rotate(-2deg); vertical-align: middle;
+  margin: 0 8px;
+}
+
+.hero-sub-row {
+  display: flex; align-items: flex-end; justify-content: space-between;
+  margin-top: 24px; gap: 16px; flex-wrap: wrap;
+
+}
+.hero-desc { font-size: 16px; color: var(--muted); line-height: 1.7; max-width: 400px; }
+.hero-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; margin-bottom: 4px; }
+.chip {
+  background: var(--white); border: 1.5px solid var(--border);
+  border-radius: 100px; padding: 8px 18px;
+  font-size: 13px; font-weight: 600; color: var(--black);
+  transition: all 0.2s;
+}
+.chip:hover { background: var(--black); color: var(--lime); border-color: var(--black); }
+
+.hero-cta-row {
+  display: flex; gap: 14px; margin-top: 16px; flex-wrap: wrap;
+
+}
+.btn-primary {
+  background: var(--black); color: var(--white);
+  padding: 16px 36px; border-radius: 100px;
+  font-size: 15px; font-weight: 700;
+  text-decoration: none; transition: all 0.2s;
+  display: inline-flex; align-items: center; gap: 8px;
+}
+.btn-primary:hover { background: var(--orange); transform: translateY(-2px); }
+.btn-secondary {
+  background: transparent; color: var(--black);
+  padding: 16px 36px; border-radius: 100px;
+  font-size: 15px; font-weight: 600;
+  text-decoration: none; border: 1.5px solid var(--border);
+  transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px;
+}
+.btn-secondary:hover { border-color: var(--black); }
+
+/* floating badges */
+.float-badge {
+  position: absolute;
+  background: var(--white); border: 1.5px solid var(--border);
+  border-radius: 16px; padding: 12px 18px;
+  font-size: 13px; font-weight: 600;
+  animation: float 4s ease-in-out infinite;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+  display: flex; align-items: center; gap: 10px;
+}
+.float-badge.b1 { top: 18%; right: 8%; animation-delay: 0s; }
+.float-badge.b2 { top: 42%; right: 4%; animation-delay: 1s; }
+.float-badge.b3 { bottom: 22%; right: 14%; animation-delay: 2s; }
+@keyframes float {
+  0%,100% { transform: translateY(0px) rotate(-1deg); }
+  50% { transform: translateY(-12px) rotate(1deg); }
+}
+.badge-emoji { font-size: 20px; }
+
+/* MARQUEE */
+.marquee-wrap {
+  background: var(--black); padding: 8px 0;
+  overflow: hidden; margin: 0;
+}
+.marquee-track {
+  display: flex; gap: 0; width: max-content;
+  animation: marquee 18s linear infinite;
+}
+.marquee-item {
+  display: flex; align-items: center; gap: 20px;
+  padding: 0 24px;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 13px; letter-spacing: 0.08em; color: var(--white);
+  white-space: nowrap;
+}
+.marquee-item .star { color: var(--lime); font-size: 14px; }
+@keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+/* SECTIONS */
+section { padding: 48px 48px 48px 48px; max-width: none; }
+
+.label-row {
+  display: flex; align-items: center; gap: 10px; margin-bottom: 20px;
+}
+.label-pill {
+  background: var(--black); color: var(--lime);
+  border-radius: 100px; padding: 6px 16px;
+  font-size: 12px; font-weight: 700; letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.section-heading {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(28px, 3.5vw, 48px);
+  line-height: 1; letter-spacing: 0.02em;
+  margin-bottom: 20px;
+}
+
+/* SERVICES */
+#services { background: var(--white); }
+.services-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;
+}
+#courses .services-grid { grid-template-columns: repeat(6,1fr); gap: 8px; }
+.service-card {
+  border-radius: 16px; padding: 24px 20px;
+  display:flex; flex-direction:column; height:auto;
+  position: relative; overflow: hidden;
+  transition: transform 0.3s ease;
+  cursor: default;
+}
+.service-card:hover { transform: translateY(-6px); }
+.sc-1 { background: var(--lime); }
+.sc-2 { background: #ffe8df; }
+.sc-3 { background: #dde8ff; }
+.sc-4 { background: #111111; color: var(--white); }
+.sc-4 .service-card-num { color: rgba(255,255,255,0.3); }
+.sc-4 .service-card-tags .tag { border-color: rgba(255,255,255,0.2); color: rgba(255,255,255,0.6); }
+
+.service-card-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 64px; line-height: 1;
+  color: rgba(0,0,0,0.1); margin-bottom: 20px;
+  letter-spacing: 0.02em;
+}
+.service-card-name {
+  font-size: 22px; font-weight: 800;
+  margin-bottom: 12px; line-height: 1.2;
+}
+.service-card-desc {
+  font-size: 14px; line-height: 1.8;
+  color: rgba(0,0,0,0.6); margin-bottom: 24px;
+}
+.sc-4 .service-card-desc { color: rgba(255,255,255,0.5); }
+.service-card-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.service-card-tags .tag {
+  font-size: 11px; font-weight: 600;
+  border: 1.5px solid rgba(0,0,0,0.2);
+  border-radius: 100px; padding: 4px 12px;
+  color: rgba(0,0,0,0.5);
+}
+
+/* PRICING */
+#pricing { background: var(--bg); }
+.pricing-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+}
+.pricing-card {
+  background: var(--white); border-radius: 24px;
+  padding: 40px 32px; border: 1.5px solid var(--border);
+  transition: transform 0.3s, box-shadow 0.3s;
+  position: relative;
+}
+.pricing-card:hover { transform: translateY(-6px); box-shadow: 0 20px 60px rgba(0,0,0,0.1); }
+.pricing-card.featured {
+  background: var(--black); color: var(--white);
+  border-color: var(--black);
+}
+.popular-tag {
+  position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+  background: var(--lime); color: var(--black);
+  border-radius: 100px; padding: 6px 18px;
+  font-size: 12px; font-weight: 700; white-space: nowrap;
+}
+.pricing-tier {
+  font-size: 12px; font-weight: 700; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--muted); margin-bottom: 20px;
+}
+.pricing-card.featured .pricing-tier { color: rgba(255,255,255,0.5); }
+.pricing-price {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 56px; line-height: 1; margin-bottom: 4px; letter-spacing: 0.02em;
+}
+.pricing-unit { font-size: 13px; color: var(--muted); margin-bottom: 28px; }
+.pricing-card.featured .pricing-unit { color: rgba(255,255,255,0.4); }
+.pricing-divider {
+  height: 1px; background: var(--border);
+  margin-bottom: 24px;
+}
+.pricing-card.featured .pricing-divider { background: rgba(255,255,255,0.1); }
+.pricing-features { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+.pricing-features li {
+  font-size: 14px; line-height: 1.5;
+  color: var(--muted); display: flex; gap: 10px; align-items: flex-start;
+}
+.pricing-card.featured .pricing-features li { color: rgba(255,255,255,0.6); }
+.pricing-features li::before {
+  content: '✓'; color: var(--lime); font-weight: 700;
+  flex-shrink: 0;
+}
+.pricing-card:not(.featured) .pricing-features li::before { color: var(--orange); }
+.pricing-btn {
+  display: block; margin-top: 32px; padding: 14px;
+  text-align: left; text-decoration: none;
+  border-radius: 100px; font-size: 14px; font-weight: 700;
+  border: 1.5px solid var(--border); color: var(--black);
+  transition: all 0.2s;
+}
+.pricing-btn:hover { background: var(--black); color: var(--white); border-color: var(--black); }
+.pricing-card.featured .pricing-btn {
+  background: var(--lime); color: var(--black); border-color: var(--lime);
+}
+.pricing-card.featured .pricing-btn:hover { background: var(--white); }
+
+/* CONTACT */
+#contact { background: var(--white); padding-top: 40px; padding-bottom: 40px; }
+.contact-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: stretch;
+}
+.contact-left {}
+.contact-emoji { font-size: 64px; margin-bottom: 20px; display: block; }
+.contact-tagline {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(36px, 5vw, 56px); line-height: 1.05;
+  margin-bottom: 20px; letter-spacing: 0.02em;
+}
+.contact-tagline span { color: var(--orange); }
+.contact-desc { font-size: 15px; color: var(--muted); line-height: 1.8; margin-bottom: 36px; }
+.contact-info-list { display: flex; flex-direction: column; gap: 16px; }
+.contact-info-item {
+  display: flex; align-items: center; gap: 14px;
+  padding: 14px 18px; background: var(--bg);
+  border-radius: 14px; font-size: 14px;
+}
+.info-icon { font-size: 20px; }
+.info-label { font-size: 11px; font-weight: 700; color: var(--muted); letter-spacing: 0.05em; text-transform: uppercase; }
+.info-value { font-size: 14px; font-weight: 600; }
+
+/* FORM */
+.form-card {
+  background: var(--bg); border-radius: 24px;
+  padding: 18px 20px; border: 1.5px solid var(--border);
+  height: 100%; box-sizing: border-box;
+}
+.form-title {
+  font-size: 16px; font-weight: 800; margin-bottom: 16px;
+}
+.form-group { margin-bottom: 10px; }
+.form-group label {
+  display: block; font-size: 12px; font-weight: 700;
+  color: var(--muted); letter-spacing: 0.05em; text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.form-group input, .form-group select, .form-group textarea {
+  width: 100%; background: var(--white);
+  border: 1.5px solid var(--border); border-radius: 14px;
+  color: var(--text); font-family: 'Plus Jakarta Sans', 'Noto Sans KR', sans-serif;
+  font-size: 14px; font-weight: 400;
+  padding: 14px 18px; outline: none; resize: none;
+  transition: border-color 0.2s;
+}
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+  border-color: var(--black);
+}
+.form-group textarea { min-height: 120px; }
+.form-group select option { background: var(--white); }
+.form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.submit-btn {
+  width: 100%; padding: 18px;
+  background: var(--black); color: var(--white);
+  border: none; border-radius: 100px;
+  font-family: 'Plus Jakarta Sans', 'Noto Sans KR', sans-serif;
+  font-size: 15px; font-weight: 700;
+  cursor: pointer; transition: all 0.2s;
+  display: flex; align-items: center; justify-content: flex-start; gap: 8px;
+  margin-top: 8px;
+}
+.submit-btn:hover { background: var(--orange); transform: translateY(-2px); }
+
+/* SUCCESS */
+.success-msg {
+  display: none; text-align: left; padding: 60px 20px;
+}
+.success-emoji { font-size: 56px; margin-bottom: 16px; }
+.success-title { font-family: 'Bebas Neue', sans-serif; font-size: 40px; letter-spacing: 0.05em; margin-bottom: 10px; }
+.success-sub { font-size: 14px; color: var(--muted); line-height: 1.7; }
+
+/* FOOTER */
+footer {
+  padding: 20px 40px;
+  display: flex; align-items: center; justify-content: space-between;
+  background: var(--black); padding: 40px;
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;
+}
+.footer-logo-wrap { display: flex; align-items: center; gap: 12px; }
+.footer-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 22px; letter-spacing: 0.1em; color: var(--white);
+}
+.footer-logo-sub { font-size: 12px; color: rgba(255,255,255,0.3); }
+.footer-links { display: flex; gap: 24px; }
+.footer-links a { font-size: 13px; color: rgba(255,255,255,0.4); text-decoration: none; transition: color 0.2s; }
+.footer-links a:hover { color: var(--lime); }
+.footer-copy { font-size: 12px; color: rgba(255,255,255,0.25); width: 100%; }
+
+/* ANIMATIONS */
+@keyframes fadeUp {
+  from { opacity:0; transform:translateY(20px); }
+  to { opacity:1; transform:translateY(0); }
+}
+.reveal { opacity:0; transform:translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.reveal.visible { opacity:1; transform:translateY(0); }
+
+/* HERO STUDIO PHOTO */
+.hero-studio-photo {
+  position: absolute;
+  top: 50%; right: 4%;
+  transform: translateY(-50%);
+  width: clamp(260px, 30vw, 460px);
+  z-index: 1;
+  pointer-events: none;
+}
+/* stacked card layout */
+.studio-photo-stack {
+  position: relative;
+  width: 100%;
+  height: clamp(320px, 40vw, 560px);
+}
+.studio-card {
+  position: absolute;
+  border-radius: 20px;
+  overflow: hidden;
+  background: #e8e4df;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+  display: flex; align-items: center; justify-content: flex-start;
+}
+.studio-card img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+}
+/* main large card - slightly tilted */
+.studio-card.card-main {
+  width: 76%;
+  height: 80%;
+  top: 10%; left: 12%;
+  transform: rotate(2deg);
+  z-index: 3;
+  border: 3px solid rgba(255,255,255,0.9);
+}
+/* accent card top-left behind */
+.studio-card.card-accent1 {
+  width: 55%;
+  height: 55%;
+  top: 0; left: 0;
+  transform: rotate(-5deg);
+  z-index: 1;
+  border: 3px solid var(--lime);
+  background: var(--black);
+}
+/* accent card bottom-right behind */
+.studio-card.card-accent2 {
+  width: 48%;
+  height: 42%;
+  bottom: 0; right: 0;
+  transform: rotate(6deg);
+  z-index: 2;
+  border: 3px solid var(--orange);
+  background: var(--black);
+}
+/* small floating label on main card */
+.studio-card-label {
+  position: absolute;
+  bottom: -14px; left: 50%; transform: translateX(-50%) rotate(-2deg);
+  background: var(--black); color: var(--lime);
+  border-radius: 100px; padding: 8px 20px;
+  font-size: 12px; font-weight: 700; letter-spacing: 0.08em;
+  white-space: nowrap; z-index: 10;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+}
+.studio-photo-placeholder {
+  display: flex; flex-direction: column;
+  align-items: center; gap: 10px;
+  color: #999; font-size: 12px; font-weight: 500;
+  text-align: left; padding: 20px;
+}
+@media(max-width:900px) {
+  .hero-studio-photo { display: none; }
+}
+
+
+@media(max-width:768px){
+  nav { padding: 16px 20px; }
+  .nav-links { display:none; }
+  section { padding: 72px 20px; }
+  #hero { padding: 100px 20px 60px; }
+  .services-grid { grid-template-columns:1fr; }
+  .pricing-grid { grid-template-columns:1fr; }
+  .contact-grid { grid-template-columns:1fr; }
+  .form-row-2 { grid-template-columns:1fr; }
+  .float-badge { display:none; }
+  footer {
+  padding: 20px 40px;
+  display: flex; align-items: center; justify-content: space-between; padding:28px 20px; }
+}
+.hdot { width:7px;height:7px;border-radius:50%;background:rgba(0,0,0,0.2);cursor:pointer;transition:background 0.3s,transform 0.3s; }
+.hdot.active { background:var(--black);transform:scale(1.3); }
+#hero > div[style*=\"grid\"] > div:first-child { /* left panel */ }
+
+/* MOSAIC */
+.hero-studio-photo {
+  position:absolute; top:50%; right:3%;
+  transform:translateY(-52%);
+  width:clamp(320px,38vw,520px);
+  z-index:1; pointer-events:none;
+}
+.studio-mosaic { display:flex; flex-direction:column; gap:10px; }
+.mosaic-main {
+  width:100%; aspect-ratio:4/3; border-radius:24px;
+  background:#e0dbd3; overflow:hidden; position:relative;
+  box-shadow:0 20px 60px rgba(0,0,0,0.13);
+  transform:rotate(-1.5deg);
+}
+.mosaic-main img { width:100%; height:100%; object-fit:cover; display:block; }
+.mosaic-main::before {
+  content:''; position:absolute; top:0; left:0;
+  width:40px; height:40px; background:var(--lime);
+  border-radius:0 0 20px 0; z-index:2;
+}
+.mosaic-badge {
+  position:absolute; bottom:16px; right:16px;
+  background:var(--black); color:var(--white);
+  border-radius:14px; padding:10px 16px;
+  font-size:12px; font-weight:700;
+  display:flex; align-items:center; gap:8px;
+  z-index:3; box-shadow:0 4px 16px rgba(0,0,0,0.3);
+}
+.mosaic-badge-dot {
+  width:8px; height:8px; border-radius:50%;
+  background:var(--lime); animation:blink 1.5s ease infinite;
+}
+.mosaic-row {
+  display:grid; grid-template-columns:1fr 1fr; gap:10px;
+  transform:rotate(-1.5deg);
+}
+.mosaic-sub {
+  aspect-ratio:1/1; border-radius:20px; background:#d4cfc8;
+  overflow:hidden; position:relative;
+  display:flex; align-items:center; justify-content:center;
+  box-shadow:0 8px 24px rgba(0,0,0,0.1);
+}
+.mosaic-sub img { width:100%; height:100%; object-fit:cover; display:block; }
+.mosaic-sub-label {
+  font-family:'Bebas Neue',sans-serif; font-size:clamp(14px,1.8vw,22px);
+  letter-spacing:0.15em; color:#c8ff00; text-align:center; padding:12px;
+  text-shadow:0 0 12px rgba(200,255,0,0.5);
+}
+@media(max-width:900px){ .hero-studio-photo { display:none; } }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:inline-block;vertical-align:middle;margin-right:10px;">
+      <path d="M0 0 L0 17 L17 17 Q17 0 0 0 Z" fill="#ffffff"/>
+      <path d="M17 0 L17 17 L34 17 Q34 0 17 0 Z" fill="#ffffff"/>
+      <path d="M0 17 L0 34 L17 34 Q17 17 0 17 Z" fill="#ffffff"/>
+      <path d="M17 17 L17 34 L34 34 Q34 17 17 17 Z" fill="#ffffff"/>
+    </svg><span>WAVUS</span></a>
+  <ul class="nav-links">
+    <li><a href="#courses">과목</a></li>
+    <li><a href="#equipment">장비</a></li>
+    <li><a href="#instructors">강사</a></li>
+    <li><a href="#releases">릴리즈</a></li>
+    <li><a href="#contact">상담</a></li>
+    <li><a href="#" onclick="openMemberGate();return false;" style="color:rgba(255,220,80,0.85);font-weight:700;letter-spacing:0.04em;">회원</a></li>
+  </ul>
+  <div style="display:flex;align-items:center;gap:14px;">
+    <a href="tel:050713166191" style="font-size:14px;font-weight:600;color:#fff;text-decoration:none;letter-spacing:0.05em;">0507-1316-6191</a>
+    <a href="#contact" class="nav-cta">문의하기 →</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+
+  <div class="hero-tag" style="margin-bottom:12px;">
+    <span class="dot"></span>
+    현직 프로 강사 1:1 레슨
+  </div>
+
+  <div style="font-size:13px;color:var(--black);font-weight:700;margin-bottom:24px;letter-spacing:0.04em;">Cube · DreamT · Fantagio · Danal · Vine 소속 교육 경력</div>
+
+  <h1 class="hero-title">
+    YOUR<br>
+    <span class="highlight">SOUND,</span><br>
+    <span class="tag-pill">NEXT</span> LEVEL
+  </h1>
+
+  <div class="hero-chips" style="margin-top:20px;margin-bottom:12px;">
+    <span class="chip">보컬</span>
+    <span class="chip">작곡</span>
+    <span class="chip">코드반주·편곡</span>
+    <span class="chip">믹싱·마스터링</span>
+    <span class="chip">싱어송라이터</span>
+    <span class="chip">트랙메이커/탑라이너</span>
+  </div>
+
+  <p class="hero-desc">목적에 맞춘 전문 커리큘럼 제공</p>
+
+  <div class="hero-cta-row">
+    <a href="#contact" class="btn-primary">지금 문의하기 →</a>
+  </div>
+
+  <!-- 우측 모자이크 사진 -->
+  <div class="hero-studio-photo">
+    <div class="studio-mosaic">
+      <div class="mosaic-main">
+        <img src="photo_main3.jpg" alt="메인 스튜디오" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <div style="position:absolute;inset:0;background:rgba(0,0,0,0.28);"></div>
+        <div style="position:absolute;bottom:20px;left:20px;z-index:3;">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:clamp(14px,1.8vw,22px);color:#c8ff00;letter-spacing:0.15em;line-height:1;text-shadow:0 0 12px rgba(200,255,0,0.5);">RECORDING ROOM</div>
+          
+        </div>
+        <div class="mosaic-badge">
+          <div class="mosaic-badge-dot"></div>
+          <img src="wavus_logo_team.png" style="height:44px;width:auto;display:block;object-fit:contain;">
+        </div>
+      </div>
+      <div class="mosaic-row">
+        <div class="mosaic-sub" style="background:var(--black);position:relative;overflow:hidden;">
+          <img src="g2.jpg" style="width:100%;height:100%;object-fit:cover;display:block;opacity:0.7;">
+          <div class="mosaic-sub-label" style="position:absolute;bottom:8px;left:0;right:0;text-align:center;">GEAR</div>
+        </div>
+        <div class="mosaic-sub" style="overflow:hidden;position:relative;">
+          <img src="g3.jpg" style="width:100%;height:100%;object-fit:cover;display:block;">
+          <div style="position:absolute;inset:0;background:rgba(0,0,0,0.35);"></div>
+          <div style="position:absolute;bottom:20px;left:16px;z-index:3;">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:clamp(14px,1.8vw,22px);color:#c8ff00;letter-spacing:0.15em;line-height:1;text-shadow:0 0 12px rgba(200,255,0,0.5);">LESSON ROOM</div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 마퀴 하단 고정 -->
+  <div style="position:absolute;bottom:0;left:0;right:0;z-index:5;">
+    <div class="marquee-wrap">
+      <div class="marquee-track">
+        <div class="marquee-item"><span class="star">★</span> 하드웨어 전반 · 음원 제작 지원</div>
+        <div class="marquee-item"><span class="star">★</span> 보컬 · 발성 무료 진단 · 파일 업로드</div>
+        <div class="marquee-item"><span class="star">★</span> 하드웨어 전반 · 음원 제작 지원</div>
+        <div class="marquee-item"><span class="star">★</span> 보컬 · 발성 무료 진단 · 파일 업로드</div>
+        <div class="marquee-item"><span class="star">★</span> 하드웨어 전반 · 음원 제작 지원</div>
+        <div class="marquee-item"><span class="star">★</span> 보컬 · 발성 무료 진단 · 파일 업로드</div>
+        <div class="marquee-item"><span class="star">★</span> 하드웨어 전반 · 음원 제작 지원</div>
+        <div class="marquee-item"><span class="star">★</span> 보컬 · 발성 무료 진단 · 파일 업로드</div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- MARQUEE 제거됨 - 히어로 하단으로 이동 -->
+
+<!-- COURSES -->
+<section id="courses">
+  <div class="label-row reveal"><span class="label-pill">Courses</span>
+    <span style="font-size:13px;font-weight:600;color:#666;margin-left:14px;letter-spacing:-0.01em;">2인 이상 단체 수업(상담)</span>
+    <span style="display:inline-flex;align-items:center;gap:6px;margin-left:14px;background:linear-gradient(135deg,#1a1a1a,#2d2d2d);color:#ffd700;font-size:12px;font-weight:700;padding:5px 14px;border-radius:20px;letter-spacing:0.03em;box-shadow:0 2px 8px rgba(0,0,0,0.15);">
+      <span style="font-size:13px;">★</span> 6개월 이상 회원 &nbsp;·&nbsp; 음원 지원 · 공인 자격증 · 해외 수료증 · 예술 인증 관리 제공
+    </span>
+  </div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;align-items:stretch;">
+
+    <div class="service-card sc-1 reveal">
+      <h3 class="service-card-name">보컬 · 싱어송라이터</h3>
+      <div style="display:flex;align-items:center;flex-wrap:wrap;gap:5px;margin-top:2px;margin-bottom:12px;">
+        <p style="font-size:11px;color:rgba(0,0,0,0.5);margin:0;">Vocal & Singer-Songwriter</p>
+        <span style="font-size:9px;font-weight:700;color:rgba(0,0,0,0.5);background:rgba(0,0,0,0.07);border:1px solid rgba(0,0,0,0.12);border-radius:20px;padding:2px 8px;white-space:nowrap;letter-spacing:0.02em;">SLS발성 · 버클리음대 · UNT 공식 커리큘럼</span>
+      </div>
+      <div style="border-left:2px solid rgba(0,0,0,0.25);padding-left:10px;margin-bottom:12px;">
+        <div style="font-size:12px;font-weight:700;color:var(--black);margin-bottom:4px;">보컬</div>
+        <p style="font-size:11px;color:rgba(0,0,0,0.7);line-height:1.6;margin:0 0 8px;">검증된 커리큘럼으로 발성·보컬 이해를 한번에 정리 · 상담과 함께 진단 및 기준 제시</p>
+        <div style="display:flex;flex-wrap:wrap;gap:4px;">
+          <span style="background:rgba(0,0,0,0.12);border-radius:20px;padding:4px 10px;font-size:11px;color:var(--black);white-space:nowrap;">[A] 16만원 · DAW·시퀀싱</span>
+          <span style="background:rgba(0,0,0,0.12);border-radius:20px;padding:4px 10px;font-size:11px;color:var(--black);white-space:nowrap;">[B] 20만원 · 연습실 · 코드반주</span>
+        </div>
+      </div>
+      <div style="border-left:2px solid rgba(255,100,0,0.5);padding-left:10px;">
+        <div style="font-size:12px;font-weight:700;color:var(--black);margin-bottom:4px;">싱어송라이터</div>
+        <p style="font-size:11px;color:rgba(0,0,0,0.7);line-height:1.6;margin:0;">작사 · 작곡 · 제작 · 보컬 · 랩 · 미디 + 코드 편곡 + 작곡(탑라이닝) 한번에</p>
+      </div>
+      <div style="flex:1;"></div>
+      <span style="background:rgba(0,0,0,0.12);border-radius:20px;padding:4px 10px;font-size:11px;color:var(--black);align-self:flex-start;">30만원</span>
+    </div>
+
+    <div class="service-card sc-2 reveal">
+      <h3 class="service-card-name">작곡 · 미디 작곡</h3>
+      <p style="font-size:11px;color:rgba(0,0,0,0.5);margin-top:2px;margin-bottom:12px;">Composition & MIDI</p>
+      <div style="border-left:2px solid rgba(0,0,0,0.2);padding-left:10px;margin-bottom:12px;">
+        <div style="font-size:12px;font-weight:700;color:var(--black);margin-bottom:4px;">작곡</div>
+        <p style="font-size:11px;color:rgba(0,0,0,0.7);line-height:1.7;margin:0 0 4px;">올라운드 작·편곡의 완성</p>
+        <p style="font-size:11px;color:rgba(0,0,0,0.5);margin:0 0 8px;">· 코드 편곡 + 건반 화성 + 미디 시퀀싱 + 믹싱·마스터링</p>
+        <span style="background:rgba(0,0,0,0.12);border-radius:20px;padding:4px 10px;font-size:11px;color:var(--black);">30만원</span>
+      </div>
+      <div style="border-left:2px solid rgba(255,100,0,0.4);padding-left:10px;">
+        <div style="font-size:12px;font-weight:700;color:var(--black);margin-bottom:4px;">미디 작곡</div>
+        <p style="font-size:11px;color:rgba(0,0,0,0.7);line-height:1.7;margin:0 0 4px;">트랙메이커부터 탑라이너까지 전문 특화 및 퍼블리싱 준비반</p>
+      </div>
+      <div style="flex:1;"></div>
+      <div style="display:flex;flex-wrap:wrap;gap:4px;">
+        <span style="background:rgba(0,0,0,0.12);border-radius:20px;padding:4px 10px;font-size:11px;color:var(--black);white-space:nowrap;">[A] 15만원 · DAW·시퀀싱</span>
+        <span style="background:rgba(0,0,0,0.12);border-radius:20px;padding:4px 10px;font-size:11px;color:var(--black);white-space:nowrap;">[B] 30만원 · 하드웨어 전반</span>
+      </div>
+    </div>
+
+    <div class="service-card reveal" style="background:#e8f4ff;">
+      <h3 class="service-card-name" style="font-size:clamp(14px,1.3vw,20px);">코드 편곡 &amp; 건반 화성</h3>
+      <p style="font-size:11px;color:var(--muted);margin-top:2px;margin-bottom:12px;">Reharmonization</p>
+      <p style="font-size:11px;color:var(--black);line-height:1.7;margin:0 0 4px;">반주 및 작·편곡을 위한 선택이 아닌 <span style="color:#ff7c43;font-weight:700;">필수</span> 커리큘럼</p>
+      <p style="font-size:11px;color:#ff7c43;margin:0 0 8px;">(악보 초견 위주의 학원식 수업 ✕)</p>
+      <p style="font-size:11px;color:var(--muted);margin:0 0 4px;">· 원리 이해 → 코드편곡(리하모니제이션) → 자유로운 반주·편곡까지</p>
+      <p style="font-size:11px;color:var(--muted);margin:0 0 0;">· 최대 6개월 완료 시 평생 자유로운 코드 건반 · 코드 편곡 보장</p>
+      <div style="flex:1;"></div>
+      <span style="background:rgba(0,0,0,0.08);border-radius:20px;padding:4px 10px;font-size:11px;color:var(--black);">20만원</span>
+    </div>
+
+    <div class="service-card sc-4 reveal">
+      <h3 class="service-card-name" style="font-size:clamp(14px,1.3vw,20px);">믹싱 · 마스터링</h3>
+      <p style="font-size:11px;color:var(--muted);margin-top:2px;margin-bottom:12px;">Mixing & Mastering</p>
+      <p style="font-size:11px;color:var(--muted);line-height:1.7;margin:0 0 4px;">하드웨어 시그널 체인 실습</p>
+      <p style="font-size:11px;color:var(--muted);margin:0 0 0;">· 트랙킹부터 하드웨어를 활용한 시그널 체인 구성</p>
+      <div style="flex:1;"></div>
+      <span style="background:rgba(255,255,255,0.15);border-radius:20px;padding:4px 10px;font-size:11px;color:var(--white);">30만원</span>
+    </div>
+
+  </div>>>>
+</section>
+
+
+
+<!-- EQUIPMENT -->
+<section id="equipment" style="background:var(--bg);">
+  <div class="label-row reveal"><span class="label-pill">Equipment</span></div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:0;align-items:stretch;" class="reveal">
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:0;min-height:100%;">
+      <div style="background:#111;padding:10px 14px;border-left:3px solid var(--lime);border-bottom:1px solid rgba(255,255,255,0.06);border-right:1px solid rgba(255,255,255,0.04);">
+        <div style="font-size:9px;color:rgba(255,255,255,0.3);letter-spacing:2px;margin-bottom:3px;">INTERFACE</div>
+        <div style="font-size:10px;font-weight:500;color:#fff;line-height:1.7;">Metric Halo LIO-8/4 MkIV · Merging Technologies Anubis · SPL Creon</div>
+      </div>
+      <div style="background:#111;padding:10px 14px;border-left:3px solid var(--orange);border-bottom:1px solid rgba(255,255,255,0.06);">
+        <div style="font-size:9px;color:rgba(255,255,255,0.3);letter-spacing:2px;margin-bottom:3px;">MICROPHONE</div>
+        <div style="font-size:10px;font-weight:500;color:#fff;line-height:1.7;">Neumann TLM 103 · AKG C414 XLII<br>KM184 ×2 · SM57 ×2 · MB85 Beta · PRA383D</div>
+      </div>
+      <div style="background:#111;padding:10px 14px;border-left:3px solid var(--blue);border-bottom:1px solid rgba(255,255,255,0.06);border-right:1px solid rgba(255,255,255,0.04);">
+        <div style="font-size:9px;color:rgba(255,255,255,0.3);letter-spacing:2px;margin-bottom:3px;">PREAMP / EQ</div>
+        <div style="font-size:10px;font-weight:500;color:#fff;line-height:1.7;">Vintech X73i · Great River ME-1NV<br>Chandler TG2 · API 550B · Carnaby 500 · Midas 502</div>
+      </div>
+      <div style="background:#111;padding:10px 14px;border-left:3px solid var(--pink);border-bottom:1px solid rgba(255,255,255,0.06);">
+        <div style="font-size:9px;color:rgba(255,255,255,0.3);letter-spacing:2px;margin-bottom:3px;">COMPRESSOR</div>
+        <div style="font-size:10px;font-weight:500;color:#fff;line-height:1.7;">Tube-Tech CL 1B · XLA-500 · WesAudio NG78<br>WesAudio Dione · Elysia Xpressor · Elysia XMAX</div>
+      </div>
+      <div style="background:#111;padding:10px 14px;border-left:3px solid var(--lime);border-bottom:1px solid rgba(255,255,255,0.06);border-right:1px solid rgba(255,255,255,0.04);">
+        <div style="font-size:9px;color:rgba(255,255,255,0.3);letter-spacing:2px;margin-bottom:3px;">SUMMING / BUS</div>
+        <div style="font-size:10px;font-weight:500;color:#fff;line-height:1.7;">Dangerous Music 2-Bus+ · Rupert Neve Designs MBP</div>
+      </div>
+      <div style="background:#111;padding:10px 14px;border-left:3px solid var(--orange);border-bottom:1px solid rgba(255,255,255,0.06);">
+        <div style="font-size:9px;color:rgba(255,255,255,0.3);letter-spacing:2px;margin-bottom:3px;">500-SERIES CHASSIS</div>
+        <div style="font-size:10px;font-weight:500;color:#fff;line-height:1.7;">Heritage Audio OST-6 · Midas L6</div>
+      </div>
+      <div style="background:#111;padding:10px 14px;border-left:3px solid var(--blue);border-bottom:1px solid rgba(255,255,255,0.06);border-right:1px solid rgba(255,255,255,0.04);">
+        <div style="font-size:9px;color:rgba(255,255,255,0.3);letter-spacing:2px;margin-bottom:3px;">MONITOR</div>
+        <div style="font-size:10px;font-weight:500;color:#fff;line-height:1.7;">Barefoot Footprint03 · Epic 5<br>MixCube ×2 · Sub 8 · JBL EON 715 ×2</div>
+      </div>
+      <div style="background:#111;padding:10px 14px;border-left:3px solid var(--pink);border-bottom:1px solid rgba(255,255,255,0.06);">
+        <div style="font-size:9px;color:rgba(255,255,255,0.3);letter-spacing:2px;margin-bottom:3px;">HEADPHONE</div>
+        <div style="font-size:10px;font-weight:500;color:#fff;line-height:1.7;">HD650 · ATH-M50x · KNS 6400 · Dunu Arashi</div>
+      </div>
+      <div style="background:#111;padding:10px 14px;border-left:3px solid var(--lime);border-bottom:1px solid rgba(255,255,255,0.06);border-right:1px solid rgba(255,255,255,0.04);">
+        <div style="font-size:9px;color:rgba(255,255,255,0.3);letter-spacing:2px;margin-bottom:3px;">MIXER</div>
+        <div style="font-size:10px;font-weight:500;color:#fff;line-height:1.7;">Soundcraft Ui24R</div>
+      </div>
+      <div style="background:#111;padding:10px 14px;border-left:3px solid var(--blue);border-bottom:1px solid rgba(255,255,255,0.06);">
+        <div style="font-size:9px;color:rgba(255,255,255,0.3);letter-spacing:2px;margin-bottom:3px;">HEADPHONE AMP</div>
+        <div style="font-size:10px;font-weight:500;color:#fff;line-height:1.7;">Lake People G108</div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:3fr 2fr 2fr;grid-template-rows:160px 115px 115px;gap:3px;">
+      <div style="grid-row:1/3;overflow:hidden;border-radius:6px;background:#1a1a1a;">
+        <img src="g4.jpg" style="width:100%;height:100%;object-fit:cover;display:block;filter:brightness(0.92);">
+      </div>
+      <div style="overflow:hidden;border-radius:6px;background:#1a1a1a;">
+        <img src="KakaoTalk_20260525_235701419_02.jpg" style="width:100%;height:100%;object-fit:cover;display:block;filter:brightness(0.88);">
+      </div>
+      <div style="grid-row:1/3;overflow:hidden;border-radius:6px;background:#1a1a1a;">
+        <img src="g10.jpg" style="width:100%;height:100%;object-fit:cover;display:block;filter:brightness(0.9);">
+      </div>
+      <div style="overflow:hidden;border-radius:6px;background:#1a1a1a;">
+        <img src="g7.jpg" style="width:100%;height:100%;object-fit:cover;display:block;filter:brightness(0.85);">
+      </div>
+      <div style="overflow:hidden;border-radius:6px;background:#1a1a1a;">
+        <img src="g8.jpg" style="width:100%;height:100%;object-fit:cover;display:block;filter:brightness(0.88);">
+      </div>
+      <div style="overflow:hidden;border-radius:6px;background:#1a1a1a;">
+        <img src="g9.jpg" style="width:100%;height:100%;object-fit:cover;display:block;filter:brightness(0.85);">
+      </div>
+      <div style="overflow:hidden;border-radius:6px;background:#1a1a1a;">
+        <img src="g2.jpg" style="width:100%;height:100%;object-fit:cover;display:block;filter:brightness(0.88);">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INSTRUCTORS -->
+<section id="instructors" style="background:var(--bg);">
+  <div class="label-row reveal"><span class="label-pill">Instructors</span></div>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;" class="reveal">
+
+    <!-- 강사 1: Jung Myung Sue -->
+    <div style="border-radius:16px;overflow:hidden;border:1.5px solid #ccc;display:flex;">
+      <div style="width:5px;background:var(--lime);flex-shrink:0;"></div>
+      <div style="padding:22px 18px;display:flex;gap:14px;align-items:flex-start;flex:1;background:var(--white);">
+        <div style="flex-shrink:0;width:80px;height:96px;border-radius:10px;overflow:hidden;background:#e0dbd3;">
+          <img src="instructor1.jpg" style="width:100%;height:100%;object-fit:cover;object-position:center top;display:block;">
+        </div>
+        <div style="flex:1;">
+          <div style="font-size:10px;font-weight:500;color:var(--muted);letter-spacing:0.08em;margin-bottom:4px;">보컬 · 믹싱 · 제작</div>
+          <h3 style="font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:0.05em;margin-bottom:2px;">Jung Myung Sue</h3>
+          <div style="font-size:11px;color:var(--muted);margin-bottom:8px;">정명수 &nbsp;ㅣ&nbsp; 제6511호</div>
+          <ul style="font-size:10px;line-height:1.9;list-style:none;padding:0;margin:0;">
+            <li style="color:var(--black);font-weight:600;">前 KBS · SBS · OBS 음악감독</li>
+            <li style="color:var(--muted);">MCR MD · 다날 ent 음원 콘텐츠 사업부</li>
+            <li style="color:var(--muted);">Cube · DreamT · Neganetwork</li>
+            <li style="color:var(--muted);">Jungle · Vine · JTBC 믹스나인</li>
+            <li style="color:var(--black);font-weight:600;font-size:9px;letter-spacing:0.05em;margin-top:4px;">Music Director &amp; Producer</li>
+            <li style="color:var(--muted);font-size:9px;">UNT Jazz Master(Admitted)</li>
+            <li style="color:var(--muted);font-size:9px;">Berklee College of Music Specialist</li>
+            <li style="color:var(--black);font-weight:600;font-size:9px;letter-spacing:0.04em;margin-top:4px;">Artist Credits</li>
+            <li style="color:var(--muted);font-size:9px;">비스트 · 케이시 · 맵식스 · 박초롱 · 신비</li>
+            <li style="color:var(--muted);font-size:9px;">진진(ASTRO) · 큐(THE BOYZ) 외 다수</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 강사 2: Yoo Jung Geun -->
+    <div style="border-radius:16px;overflow:hidden;border:1.5px solid #ccc;display:flex;">
+      <div style="width:5px;background:var(--orange);flex-shrink:0;"></div>
+      <div style="padding:22px 18px;display:flex;gap:14px;align-items:flex-start;flex:1;background:var(--white);">
+        <div style="flex-shrink:0;width:80px;height:96px;border-radius:10px;overflow:hidden;background:#e0dbd3;">
+          <img src="instructor2.jpg" style="width:100%;height:100%;object-fit:cover;object-position:center top;display:block;">
+        </div>
+        <div style="flex:1;">
+          <div style="font-size:10px;font-weight:500;color:var(--muted);letter-spacing:0.08em;margin-bottom:4px;">작곡 · 믹싱 · 제작</div>
+          <h3 style="font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:0.05em;margin-bottom:2px;">Yoo Jung Geun</h3>
+          <div style="font-size:11px;color:var(--muted);margin-bottom:8px;">유정근</div>
+          <ul style="font-size:10px;line-height:1.9;list-style:none;padding:0;margin:0;">
+            <li style="color:var(--muted);font-size:9px;">서울예술대학교 실용음악과</li>
+            <li style="color:var(--muted);font-size:9px;">Berklee College of Music Specialist</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 강사 3: 이승현 -->
+    <div style="border-radius:16px;overflow:hidden;border:1.5px solid #ccc;display:flex;">
+      <div style="width:5px;background:#4a90d9;flex-shrink:0;"></div>
+      <div style="padding:22px 18px;display:flex;gap:14px;align-items:flex-start;flex:1;background:var(--white);">
+        <div style="flex-shrink:0;width:80px;height:96px;border-radius:10px;background:#e0dbd3;">
+        </div>
+        <div style="flex:1;">
+          <div style="font-size:10px;font-weight:500;color:var(--muted);letter-spacing:0.08em;margin-bottom:4px;">작곡 · 음향 · 제작</div>
+          <h3 style="font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:0.05em;margin-bottom:2px;">Lee Seung Hyun</h3>
+          <div style="font-size:11px;color:var(--muted);margin-bottom:8px;">이승현</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- RELEASES -->
+<section id="releases">
+  <div class="label-row reveal"><span class="label-pill">Releases</span></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;" class="reveal">
+    <div>
+      <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;color:var(--orange);margin-bottom:8px;text-transform:uppercase;">Single Releases</div>
+      <div style="font-size:20px;font-weight:700;color:var(--black);margin-bottom:20px;">성인반</div>
+      <div style="display:grid;grid-template-columns:repeat(8,1fr);gap:4px;">
+        <div style="aspect-ratio:1;border-radius:6px;overflow:hidden;"><img src="single1.jpg" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+        <div style="aspect-ratio:1;border-radius:6px;overflow:hidden;"><img src="single2.jpg" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+        <div style="aspect-ratio:1;border-radius:6px;overflow:hidden;"><img src="single3.jpg" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+        <div style="aspect-ratio:1;border-radius:6px;overflow:hidden;"><img src="single4.jpg" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+        <div style="aspect-ratio:1;border-radius:6px;overflow:hidden;"><img src="single5.jpg" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+        <div style="aspect-ratio:1;border-radius:6px;overflow:hidden;"><img src="single6.jpg" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+        <div style="aspect-ratio:1;border-radius:6px;overflow:hidden;"><img src="single7.jpg" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+        <div style="aspect-ratio:1;border-radius:6px;overflow:hidden;"><img src="single8.jpg" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+      </div>
+    </div>
+    <div>
+      <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;color:var(--blue);margin-bottom:8px;text-transform:uppercase;">Youth Releases</div>
+      <div style="font-size:20px;font-weight:700;color:var(--black);margin-bottom:16px;">청소년</div>
+      <div style="display:flex;gap:4px;flex-wrap:nowrap;margin-bottom:8px;overflow-x:auto;">
+        <a href="https://soundcloud.com/user-292829763/lv" target="_blank" style="aspect-ratio:1;border-radius:6px;overflow:hidden;border:1px solid var(--border);display:block;position:relative;background:#1a1a2e;">
+          <iframe width="100%" height="100%" scrolling="no" frameborder="no" allow="autoplay" style="display:block;pointer-events:none;"
+            src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1548751165&color=%23ff5500&auto_play=false&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&visual=true"></iframe>
+          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;">
+            <div style="background:rgba(0,0,0,0.4);border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg>
+            </div>
+          </div>
+        </a>
+        <a href="https://soundcloud.com/user-292829763/vtfllawpem21" target="_blank" style="aspect-ratio:1;border-radius:6px;overflow:hidden;border:1px solid var(--border);display:block;position:relative;background:#1a1a2e;">
+          <iframe width="100%" height="100%" scrolling="no" frameborder="no" allow="autoplay" style="display:block;pointer-events:none;"
+            src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1555920523&color=%23ff5500&auto_play=false&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&visual=true"></iframe>
+          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;">
+            <div style="background:rgba(0,0,0,0.4);border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg>
+            </div>
+          </div>
+        </a>
+        <a href="https://soundcloud.com/user-292829763/tin58cs9wt4s" target="_blank" style="aspect-ratio:1;border-radius:6px;overflow:hidden;border:1px solid var(--border);display:block;position:relative;background:#1a1a2e;">
+          <iframe width="100%" height="100%" scrolling="no" frameborder="no" allow="autoplay" style="display:block;pointer-events:none;"
+            src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1545331072&color=%23ff5500&auto_play=false&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&visual=true"></iframe>
+          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;">
+            <div style="background:rgba(0,0,0,0.4);border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg>
+            </div>
+          </div>
+        </a>
+        <a href="https://soundcloud.com/user-292829763/you-should-know-that" target="_blank" style="aspect-ratio:1;border-radius:6px;overflow:hidden;border:1px solid var(--border);display:block;position:relative;background:#1a1a2e;">
+          <iframe width="100%" height="100%" scrolling="no" frameborder="no" allow="autoplay" style="display:block;pointer-events:none;"
+            src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1616365830&color=%23ff5500&auto_play=false&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&visual=true"></iframe>
+          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;">
+            <div style="background:rgba(0,0,0,0.4);border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg>
+            </div>
+          </div>
+        </a>
+        <a href="https://www.youtube.com/watch?v=G_qv5tD9IhU" target="_blank" style="aspect-ratio:1;border-radius:6px;overflow:hidden;border:1px solid var(--border);display:block;position:relative;background:#000;">
+          <img src="https://img.youtube.com/vi/G_qv5tD9IhU/mqdefault.jpg" style="width:100%;height:100%;object-fit:cover;display:block;">
+          <div style="position:absolute;inset:0;background:rgba(0,0,0,0.3);display:flex;align-items:center;justify-content:center;">
+            <div style="background:rgba(255,0,0,0.85);border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg>
+            </div>
+          </div>
+        </a>
+        <a href="https://www.youtube.com/watch?v=FsRHcCSinSw" target="_blank" style="aspect-ratio:1;border-radius:6px;overflow:hidden;border:1px solid var(--border);display:block;position:relative;background:#000;">
+          <img src="https://img.youtube.com/vi/FsRHcCSinSw/mqdefault.jpg" style="width:100%;height:100%;object-fit:cover;display:block;">
+          <div style="position:absolute;inset:0;background:rgba(0,0,0,0.3);display:flex;align-items:center;justify-content:center;">
+            <div style="background:rgba(255,0,0,0.85);border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg>
+            </div>
+          </div>
+        </a>
+        <div style="aspect-ratio:1;background:#e8f0ff;border:1px solid #c0d0f0;border-radius:6px;"></div>
+        <div style="aspect-ratio:1;background:#e8f0ff;border:1px solid #c0d0f0;border-radius:6px;"></div>
+        <div style="aspect-ratio:1;background:#e8f0ff;border:1px solid #c0d0f0;border-radius:6px;display:flex;align-items:center;justify-content:center;">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="#9ab0d0"><polygon points="5,3 19,12 5,21"/></svg>
+        </div>
+        <div style="aspect-ratio:1;background:#e8f0ff;border:1px solid #c0d0f0;border-radius:6px;display:flex;align-items:center;justify-content:center;">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="#9ab0d0"><polygon points="5,3 19,12 5,21"/></svg>
+        </div>
+        <div style="aspect-ratio:1;background:#e8f0ff;border:1px solid #c0d0f0;border-radius:6px;display:flex;align-items:center;justify-content:center;">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="#9ab0d0"><polygon points="5,3 19,12 5,21"/></svg>
+        </div>
+        <div style="aspect-ratio:1;background:#e8f0ff;border:1px solid #c0d0f0;border-radius:6px;display:flex;align-items:center;justify-content:center;">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="#9ab0d0"><polygon points="5,3 19,12 5,21"/></svg>
+        </div>
+        <div style="aspect-ratio:1;background:#e8f0ff;border:1px solid #c0d0f0;border-radius:6px;display:flex;align-items:center;justify-content:center;">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="#9ab0d0"><polygon points="5,3 19,12 5,21"/></svg>
+        </div>
+        <div style="aspect-ratio:1;background:#e8f0ff;border:1px solid #c0d0f0;border-radius:6px;display:flex;align-items:center;justify-content:center;">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="#9ab0d0"><polygon points="5,3 19,12 5,21"/></svg>
+        </div>
+        <div style="aspect-ratio:1;background:#e8f0ff;border:1px solid #c0d0f0;border-radius:6px;display:flex;align-items:center;justify-content:center;">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="#9ab0d0"><polygon points="5,3 19,12 5,21"/></svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="label-row reveal"><span class="label-pill">Contact</span></div>
+  <div class="contact-grid">
+
+    <!-- 왼쪽: 보컬 발성 무료 진단 신청 (MP3 업로드) -->
+    <div class="reveal" style="display:flex;flex-direction:column;">
+      <div class="form-card" style="flex:1;">
+        <div class="form-title">보컬 · 발성 무료 진단 신청</div>
+        
+        <div class="form-row-2">
+          <div class="form-group">
+            <label>이름</label>
+            <input type="text" placeholder="홍길동">
+          </div>
+          <div class="form-group">
+            <label>연락처</label>
+            <input type="text" placeholder="010-0000-0000">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>보컬 파일 (MP3 · M4A · AAC) · 전문적 평가와 기준 제시</label>
+          <input type="file" accept=".mp3,.m4a,.aac,audio/*" style="padding:10px;border:1.5px solid var(--border);border-radius:10px;width:100%;font-size:13px;background:#fff;cursor:pointer;">
+        </div>
+        <div class="form-group">
+          <label>메모 (선택)</label>
+          <textarea placeholder="장르, 목표, 궁금한 점 등 자유롭게 적어주세요." style="height:44px;"></textarea>
+        </div>
+        <button class="submit-btn" onclick="submitDiagnosis()">진단 신청하기</button>
+      </div>
+    </div>
+
+    <!-- 오른쪽: 레슨 및 견적 상담 -->
+    <div class="reveal" style="display:flex;flex-direction:column;">
+      <div class="form-card" id="formWrap" style="flex:1;">
+        <div class="form-title">레슨 및 제작 견적 상담 문의</div>
+        <div class="form-row-2">
+          <div class="form-group">
+            <label>이름</label>
+            <input type="text" placeholder="홍길동">
+          </div>
+          <div class="form-group">
+            <label>연락처</label>
+            <input type="text" placeholder="010-0000-0000">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>관심 과목</label>
+          <select>
+            <option value="">선택해주세요</option>
+            <option>보컬 A (15만원)</option>
+            <option>보컬 B (20만원)</option>
+            <option>작곡 (30만원)</option>
+            <option>믹싱·마스터링 (30만원)</option>
+            <option>싱어송라이터 (30만원)</option>
+            <option>트랙메이커·탑라이너 A (15만원)</option>
+            <option>트랙메이커·탑라이너 B (30만원)</option>
+            <option>리하모니제이션 (20만원)</option>
+            <option>기타 문의</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>메시지</label>
+          <textarea placeholder="편하게 적어주세요."></textarea>
+        </div>
+        <button class="submit-btn" onclick="submitForm()">상담 신청하기</button>
+      </div>
+      <div class="success-msg" id="successMsg">
+        <div class="success-emoji">🎉</div>
+        <div class="success-title">신청 완료!</div>
+        <div class="success-sub">빠르게 연락드릴게요 😊</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 지도 -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:40px;" class="reveal">
+    <div>
+      <div style="font-size:11px;font-weight:700;color:var(--muted);letter-spacing:0.08em;margin-bottom:8px;">📍 레슨 스튜디오</div>
+      <div style="font-size:12px;color:var(--black);margin-bottom:10px;">충북 청주시 서원구 1순환로 698 4층 10호</div>
+      <div style="border-radius:14px;overflow:hidden;border:1.5px solid var(--border);">
+        <iframe src="https://www.google.com/maps?q=충청북도+청주시+서원구+1순환로+698&hl=ko&output=embed"
+          width="100%" height="220" frameborder="0" style="display:block;" allowfullscreen></iframe>
+      </div>
+    </div>
+    <div>
+      <div style="font-size:11px;font-weight:700;color:var(--muted);letter-spacing:0.08em;margin-bottom:8px;">📍 레코딩 스튜디오</div>
+      <div style="font-size:12px;color:var(--black);margin-bottom:10px;">충북 청주시 서원구 무심서로 383 B1</div>
+      <div style="border-radius:14px;overflow:hidden;border:1.5px solid var(--border);">
+        <iframe src="https://www.google.com/maps?q=충청북도+청주시+서원구+무심서로+383&hl=ko&output=embed"
+          width="100%" height="220" frameborder="0" style="display:block;" allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ========== 회원 전용 GATE OVERLAY ========== -->
+<div id="memberGate" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.96);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);align-items:center;justify-content:center;">
+
+  <canvas id="gateCanvas" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;"></canvas>
+
+  <div style="position:relative;z-index:2;text-align:center;padding:20px;display:flex;flex-direction:column;align-items:center;">
+
+    <!-- LED 로고 -->
+    <div style="margin-bottom:16px;">
+      <svg id="ledLogo" width="52" height="52" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path id="lp1" d="M0 0 L0 17 L17 17 Q17 0 0 0 Z"/>
+        <path id="lp2" d="M17 0 L17 17 L34 17 Q34 0 17 0 Z"/>
+        <path id="lp3" d="M0 17 L0 34 L17 34 Q17 17 0 17 Z"/>
+        <path id="lp4" d="M17 17 L17 34 L34 34 Q34 17 17 17 Z"/>
+      </svg>
+    </div>
+
+    <!-- 타이틀 -->
+    <div style="font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:0.22em;color:#fff;margin-bottom:2px;line-height:1;">MEMBERS ONLY</div>
+    <div style="font-size:9px;color:rgba(255,255,255,0.2);letter-spacing:0.26em;margin-bottom:24px;">W A V U S</div>
+
+    <!-- PIN 점 -->
+    <div id="pinDots" style="display:flex;gap:10px;justify-content:center;margin-bottom:18px;">
+      <div class="pdot" id="pd0"></div>
+      <div class="pdot" id="pd1"></div>
+      <div class="pdot" id="pd2"></div>
+      <div class="pdot" id="pd3"></div>
+      <div class="pdot" id="pd4"></div>
+    </div>
+
+    <!-- 숫자판 심플 -->
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:7px;width:200px;margin-bottom:12px;">
+      <button class="pkey" onclick="pinPress('1')">1</button>
+      <button class="pkey" onclick="pinPress('2')">2</button>
+      <button class="pkey" onclick="pinPress('3')">3</button>
+      <button class="pkey" onclick="pinPress('4')">4</button>
+      <button class="pkey" onclick="pinPress('5')">5</button>
+      <button class="pkey" onclick="pinPress('6')">6</button>
+      <button class="pkey" onclick="pinPress('7')">7</button>
+      <button class="pkey" onclick="pinPress('8')">8</button>
+      <button class="pkey" onclick="pinPress('9')">9</button>
+      <button class="pkey pkey-del" onclick="pinDel()">⌫</button>
+      <button class="pkey" onclick="pinPress('0')">0</button>
+      <button class="pkey pkey-ok" onclick="checkPin()">✓</button>
+    </div>
+
+    <!-- 메시지 -->
+    <div id="pinMsg" style="font-size:10px;color:rgba(255,255,255,0.2);height:16px;letter-spacing:0.08em;">비밀번호 5자리</div>
+
+    <!-- 닫기 -->
+    <button onclick="closeMemberGate()" style="background:none;border:none;color:rgba(255,255,255,0.12);font-size:10px;cursor:pointer;letter-spacing:0.06em;font-family:'Plus Jakarta Sans',sans-serif;margin-top:16px;">닫기</button>
+
+  </div>
+</div>
+
+<!-- ========== 회원 전용 섹션 ========== -->
+<section id="memberRoom" style="display:none;background:#0a0a0a;padding:100px 60px 80px;min-height:100vh;position:relative;overflow:hidden;">
+
+  <!-- 배경 그라디언트 -->
+  <div style="position:absolute;top:-200px;left:-200px;width:600px;height:600px;background:radial-gradient(circle,rgba(255,210,60,0.06) 0%,transparent 70%);pointer-events:none;"></div>
+  <div style="position:absolute;bottom:-200px;right:-200px;width:500px;height:500px;background:radial-gradient(circle,rgba(168,85,247,0.06) 0%,transparent 70%);pointer-events:none;"></div>
+
+  <div style="max-width:900px;margin:0 auto;position:relative;z-index:1;">
+
+    <!-- 헤더 -->
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:60px;padding-bottom:24px;border-bottom:1px solid rgba(255,255,255,0.07);">
+      <div>
+        <div style="font-size:10px;letter-spacing:0.3em;color:rgba(255,210,60,0.6);margin-bottom:8px;">WAVUS MEMBERS ONLY</div>
+        <h2 style="font-family:'Bebas Neue',sans-serif;font-size:42px;letter-spacing:0.1em;color:#fff;line-height:1;">회원 전용</h2>
+      </div>
+      <button onclick="closeMemberRoom()" style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:50px;padding:10px 22px;color:rgba(255,255,255,0.4);font-size:12px;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;transition:all 0.2s;">나가기</button>
+    </div>
+
+    <!-- 콘텐츠 카드 그리드 -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+
+      <!-- 공지 -->
+      <div style="grid-column:1/-1;background:rgba(255,210,60,0.06);border:1px solid rgba(255,210,60,0.15);border-radius:20px;padding:28px 32px;">
+        <div style="font-size:10px;letter-spacing:0.2em;color:rgba(255,210,60,0.6);margin-bottom:10px;">📢 NOTICE</div>
+        <div style="font-size:15px;font-weight:600;color:rgba(255,255,255,0.85);line-height:1.7;">
+          정회원 여러분 환영합니다 🎵<br>
+          <span style="font-size:13px;font-weight:400;color:rgba(255,255,255,0.45);">이 공간은 Wavus 정회원 전용입니다. 자료·일정·업데이트 내용을 이곳에서 확인하세요.</span>
+        </div>
+      </div>
+
+      <!-- 비공개 음원 -->
+      <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:20px;padding:28px;">
+        <div style="font-size:22px;margin-bottom:14px;">🎵</div>
+        <div style="font-size:10px;letter-spacing:0.2em;color:rgba(255,255,255,0.3);margin-bottom:8px;">PRIVATE TRACKS</div>
+        <div style="font-size:16px;font-weight:600;color:rgba(255,255,255,0.8);margin-bottom:8px;">비공개 음원</div>
+        <div style="font-size:12px;color:rgba(255,255,255,0.35);line-height:1.7;">작업 중인 트랙 · 데모 음원<br>회원 전용 미리듣기</div>
+        <div style="margin-top:20px;">
+          <span style="background:rgba(255,255,255,0.06);border-radius:50px;padding:8px 18px;font-size:11px;color:rgba(255,255,255,0.3);">준비 중</span>
+        </div>
+      </div>
+
+      <!-- 자료실 -->
+      <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:20px;padding:28px;">
+        <div style="font-size:22px;margin-bottom:14px;">📁</div>
+        <div style="font-size:10px;letter-spacing:0.2em;color:rgba(255,255,255,0.3);margin-bottom:8px;">RESOURCES</div>
+        <div style="font-size:16px;font-weight:600;color:rgba(255,255,255,0.8);margin-bottom:8px;">회원 자료실</div>
+        <div style="font-size:12px;color:rgba(255,255,255,0.35);line-height:1.7;">코드표 · 편곡 템플릿<br>DAW 프리셋 다운로드</div>
+        <div style="margin-top:20px;">
+          <span style="background:rgba(255,255,255,0.06);border-radius:50px;padding:8px 18px;font-size:11px;color:rgba(255,255,255,0.3);">준비 중</span>
+        </div>
+      </div>
+
+      <!-- 레슨 일정 -->
+      <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:20px;padding:28px;">
+        <div style="font-size:22px;margin-bottom:14px;">📅</div>
+        <div style="font-size:10px;letter-spacing:0.2em;color:rgba(255,255,255,0.3);margin-bottom:8px;">SCHEDULE</div>
+        <div style="font-size:16px;font-weight:600;color:rgba(255,255,255,0.8);margin-bottom:8px;">레슨 일정</div>
+        <div style="font-size:12px;color:rgba(255,255,255,0.35);line-height:1.7;">수업 스케줄 · 잔여 횟수<br>다음 수업 일정 확인</div>
+        <div style="margin-top:20px;">
+          <span style="background:rgba(255,255,255,0.06);border-radius:50px;padding:8px 18px;font-size:11px;color:rgba(255,255,255,0.3);">준비 중</span>
+        </div>
+      </div>
+
+      <!-- 녹음 예약 -->
+      <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:20px;padding:28px;">
+        <div style="font-size:22px;margin-bottom:14px;">🎙</div>
+        <div style="font-size:10px;letter-spacing:0.2em;color:rgba(255,255,255,0.3);margin-bottom:8px;">STUDIO BOOKING</div>
+        <div style="font-size:16px;font-weight:600;color:rgba(255,255,255,0.8);margin-bottom:8px;">녹음 예약</div>
+        <div style="font-size:12px;color:rgba(255,255,255,0.35);line-height:1.7;">레코딩 스튜디오<br>회원 우선 예약</div>
+        <div style="margin-top:20px;">
+          <span style="background:rgba(255,255,255,0.06);border-radius:50px;padding:8px 18px;font-size:11px;color:rgba(255,255,255,0.3);">준비 중</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- 회원 게이트 CSS + JS -->
+<style>
+/* 파형 */
+.wbar {
+  width: 3px; border-radius: 4px; height: 8px;
+  animation: waveBar 1.2s ease-in-out infinite;
+  transform-origin: bottom;
+}
+.wbar:nth-child(1)  { animation-delay:0s; }
+.wbar:nth-child(2)  { animation-delay:0.06s; }
+.wbar:nth-child(3)  { animation-delay:0.12s; }
+.wbar:nth-child(4)  { animation-delay:0.18s; }
+.wbar:nth-child(5)  { animation-delay:0.24s; }
+.wbar:nth-child(6)  { animation-delay:0.30s; }
+.wbar:nth-child(7)  { animation-delay:0.36s; }
+.wbar:nth-child(8)  { animation-delay:0.42s; }
+.wbar:nth-child(9)  { animation-delay:0.48s; }
+.wbar:nth-child(10) { animation-delay:0.42s; }
+.wbar:nth-child(11) { animation-delay:0.36s; }
+.wbar:nth-child(12) { animation-delay:0.30s; }
+.wbar:nth-child(13) { animation-delay:0.24s; }
+.wbar:nth-child(14) { animation-delay:0.18s; }
+.wbar:nth-child(15) { animation-delay:0.12s; }
+.wbar:nth-child(16) { animation-delay:0.06s; }
+.wbar:nth-child(17) { animation-delay:0s; }
+.wbar:nth-child(18) { animation-delay:0.06s; }
+.wbar:nth-child(19) { animation-delay:0.12s; }
+.wbar:nth-child(20) { animation-delay:0.18s; }
+@keyframes waveBar {
+  0%,100% { height:6px; opacity:0.35; }
+  50%     { height:32px; opacity:1; }
+}
+/* PIN 점 */
+.pdot {
+  width:12px; height:12px; border-radius:50%;
+  background:rgba(255,255,255,0.12);
+  border:1.5px solid rgba(255,255,255,0.2);
+  transition:all 0.15s;
+}
+.pdot.filled { background:#fff; border-color:#fff; box-shadow:0 0 8px rgba(255,255,255,0.6); }
+/* 키패드 버튼 */
+.pkey {
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.08);
+  border-radius:10px;
+  color:rgba(255,255,255,0.75);
+  font-size:16px;
+  font-weight:400;
+  font-family:'Plus Jakarta Sans',sans-serif;
+  padding:13px 0;
+  cursor:pointer;
+  transition:all 0.1s;
+  width:100%;
+}
+.pkey:hover { background:rgba(255,255,255,0.1); color:#fff; }
+.pkey:active { transform:scale(0.93); background:rgba(255,255,255,0.15); }
+.pkey-del { font-size:14px; color:rgba(255,100,100,0.6); }
+.pkey-ok  { font-size:16px; color:rgba(200,241,53,0.8); }
+</style>
+
+<script>
+const MEMBER_PW = '12345'; // ← 비밀번호 여기서 변경
+
+/* LED 색상 팔레트 (사이트 색상 기반) */
+const LED_COLORS = [
+  ['#c8f135','#a8d020'],  // lime
+  ['#ff6b35','#e04a10'],  // orange
+  ['#3b5bdb','#2040b0'],  // blue
+  ['#ff4d8d','#d02060'],  // pink
+  ['#ffffff','#cccccc'],  // white
+];
+let ledIdx = 0, ledTimer = null;
+
+function ledTick() {
+  const [c1, c2] = LED_COLORS[ledIdx % LED_COLORS.length];
+  const paths = ['lp1','lp2','lp3','lp4'];
+  paths.forEach((id, i) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.style.transition = 'fill 0.5s';
+    el.setAttribute('fill', i % 2 === 0 ? c1 : c2);
+  });
+  // 파형 색도 같이 바꾸기
+  document.querySelectorAll('.wbar').forEach(b => {
+    b.style.background = `linear-gradient(to top, ${c2}, ${c1})`;
+  });
+  // PIN 점 활성 색
+  document.querySelectorAll('.pdot.filled').forEach(d => {
+    d.style.background = c1;
+    d.style.borderColor = c1;
+    d.style.boxShadow = `0 0 10px ${c1}88`;
+  });
+  ledIdx++;
+}
+
+let pinVal = '';
+
+function pinPress(d) {
+  if (pinVal.length >= 5) return;
+  pinVal += d;
+  updateDots();
+  burstWave();
+  if (pinVal.length === 5) setTimeout(checkPin, 300);
+}
+
+function pinDel() {
+  pinVal = pinVal.slice(0,-1);
+  updateDots();
+}
+
+function updateDots() {
+  for (let i = 0; i < 5; i++) {
+    const dot = document.getElementById('pd'+i);
+    const [c1] = LED_COLORS[ledIdx % LED_COLORS.length];
+    if (i < pinVal.length) {
+      dot.classList.add('filled');
+      dot.style.background = c1;
+      dot.style.borderColor = c1;
+      dot.style.boxShadow = `0 0 10px ${c1}88`;
+    } else {
+      dot.classList.remove('filled');
+      dot.style.background = '';
+      dot.style.borderColor = '';
+      dot.style.boxShadow = '';
+    }
+  }
+}
+
+function burstWave() {
+  const bars = document.querySelectorAll('.wbar');
+  const [c1,c2] = LED_COLORS[ledIdx % LED_COLORS.length];
+  bars.forEach(b => {
+    const h = Math.random() * 28 + 6;
+    b.style.height = h + 'px';
+    b.style.opacity = (h / 36).toFixed(2);
+    b.style.background = `linear-gradient(to top, ${c2}, ${c1})`;
+    setTimeout(() => { b.style.height = ''; b.style.opacity = ''; }, 350);
+  });
+}
+
+function checkPin() {
+  const msg = document.getElementById('pinMsg');
+  if (pinVal === MEMBER_PW) {
+    msg.textContent = '✓ 입장합니다';
+    msg.style.color = '#c8f135';
+    // 로고 전체 라임으로 flash
+    ['lp1','lp2','lp3','lp4'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.setAttribute('fill','#c8f135');
+    });
+    setTimeout(() => {
+      closeMemberGate();
+      const room = document.getElementById('memberRoom');
+      room.style.display = 'block';
+      room.scrollIntoView({ behavior:'smooth' });
+    }, 700);
+  } else {
+    msg.textContent = '비밀번호가 맞지 않습니다';
+    msg.style.color = '#ff4d4d';
+    // 흔들기
+    const grid = document.getElementById('pinDots');
+    ['-10px','10px','-6px','6px','0'].forEach((x,i) => {
+      setTimeout(() => { grid.style.transform = `translateX(${x})`; }, i*70);
+    });
+    setTimeout(() => {
+      pinVal = '';
+      updateDots();
+      msg.textContent = '비밀번호 5자리를 입력하세요';
+      msg.style.color = 'rgba(255,255,255,0.25)';
+    }, 1200);
+  }
+}
+
+function openMemberGate() {
+  pinVal = '';
+  updateDots();
+  document.getElementById('pinMsg').textContent = '비밀번호 5자리를 입력하세요';
+  document.getElementById('pinMsg').style.color = 'rgba(255,255,255,0.25)';
+  document.getElementById('memberGate').style.display = 'flex';
+  ledTick();
+  ledTimer = setInterval(ledTick, 1200);
+  initGateCanvas();
+}
+
+function closeMemberGate() {
+  document.getElementById('memberGate').style.display = 'none';
+  if (ledTimer) { clearInterval(ledTimer); ledTimer = null; }
+  pinVal = '';
+}
+
+function closeMemberRoom() {
+  document.getElementById('memberRoom').style.display = 'none';
+}
+
+function initGateCanvas() {
+  const canvas = document.getElementById('gateCanvas');
+  const ctx = canvas.getContext('2d');
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  const particles = Array.from({length:55}, () => ({
+    x: Math.random()*canvas.width, y: Math.random()*canvas.height,
+    r: Math.random()*1.2+0.3,
+    dx: (Math.random()-0.5)*0.35, dy: (Math.random()-0.5)*0.35,
+    alpha: Math.random()*0.4+0.08,
+    ci: Math.floor(Math.random()*LED_COLORS.length)
+  }));
+  function draw() {
+    if (document.getElementById('memberGate').style.display==='none') return;
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    particles.forEach(p => {
+      ctx.beginPath();
+      ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fillStyle = LED_COLORS[p.ci][0] + Math.floor(p.alpha*255).toString(16).padStart(2,'0');
+      ctx.fill();
+      p.x+=p.dx; p.y+=p.dy;
+      if(p.x<0||p.x>canvas.width) p.dx*=-1;
+      if(p.y<0||p.y>canvas.height) p.dy*=-1;
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
+}
+</script>
+
+<!-- FOOTER -->
+<footer style="padding:32px 40px;">
+  <div style="display:flex;align-items:center;gap:20px;margin-bottom:14px;">
+    <svg width="20" height="20" viewBox="0 0 34 34" fill="none" style="opacity:0.45;flex-shrink:0;">
+      <path d="M0 0 L0 17 L17 17 Q17 0 0 0 Z" fill="#ffffff"/>
+      <path d="M17 0 L17 17 L34 17 Q34 0 17 0 Z" fill="#ffffff"/>
+      <path d="M0 17 L0 34 L17 34 Q17 17 0 17 Z" fill="#ffffff"/>
+      <path d="M17 17 L17 34 L34 34 Q34 17 17 17 Z" fill="#ffffff"/>
+    </svg>
+    <div class="footer-copy" style="width:auto;">© 2025 Wavus</div>
+  </div>
+  <div style="font-size:12px;color:rgba(255,255,255,0.4);line-height:2.2;padding-left:4px;">
+    <span style="color:rgba(255,255,255,0.22);font-size:10px;letter-spacing:0.12em;margin-right:10px;">레슨 스튜디오 .</span>충북 청주시 서원구 1순환로 698 4층 10호<br>
+    <span style="color:rgba(255,255,255,0.22);font-size:10px;letter-spacing:0.12em;margin-right:10px;">레코딩 스튜디오 .</span>충북 청주시 서원구 무심서로 383 B1
+  </div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+// Scroll reveal
+const observer = new IntersectionObserver(entries => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      e.target.style.transitionDelay = (i * 0.08) + 's';
+      e.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1 });
+function matchEquipHeight() {
+  const list = document.querySelector('#equip-list');
+  const photos = document.querySelector('#equip-photos');
+  if (list && photos) {
+    photos.style.height = list.offsetHeight + 'px';
+  }
+}
+window.addEventListener('load', matchEquipHeight);
+window.addEventListener('resize', matchEquipHeight);
+
+// Hero slider
+let heroCur = 0;
+const heroTotal = 3;
+function heroGo(n) {
+  heroCur = n;
+  const slider = document.getElementById('heroSlider');
+  if(slider) slider.style.transform = `translateX(-${heroCur * 100}%)`;
+  document.querySelectorAll('.hdot').forEach((d,i) => d.classList.toggle('active', i === heroCur));
+}
+if(document.getElementById('heroSlider')) setInterval(() => heroGo((heroCur + 1) % heroTotal), 4000);
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+function submitDiagnosis() {
+  alert('진단 신청이 접수되었습니다. 빠르게 연락드릴게요!');
+}
+</script>
+</body>
+</html>
