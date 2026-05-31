@@ -988,81 +988,97 @@ footer {
 </section>
 
 <!-- CONTACT -->
-<section id="contact">
-  <div class="label-row reveal"><span class="label-pill">Contact</span></div>
-  <div class="contact-grid">
+<section id="contact" style="background:#111;padding:40px 40px;">
+  <div class="label-row reveal"><span class="label-pill" style="background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.5);border-color:rgba(255,255,255,0.1);">Contact</span></div>
 
-    <!-- 왼쪽: 보컬 발성 무료 진단 신청 (MP3 업로드) -->
-    <div class="reveal" style="display:flex;flex-direction:column;">
-      <div class="form-card" style="flex:1;">
-        <div class="form-title">보컬 · 발성 무료 진단 신청</div>
-        
-        <div class="form-row-2">
-          <div class="form-group">
-            <label>이름</label>
-            <input type="text" placeholder="홍길동">
-          </div>
-          <div class="form-group">
-            <label>연락처</label>
-            <input type="text" placeholder="010-0000-0000">
-          </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;" class="reveal">
+
+    <!-- 왼쪽: 보컬 발성 무료 진단 -->
+    <div style="background:rgba(255,255,255,0.05);border-radius:16px;border:1px solid rgba(255,255,255,0.1);padding:24px;">
+      <div style="font-size:9px;letter-spacing:0.22em;color:rgba(200,241,53,0.6);margin-bottom:4px;">FREE DIAGNOSIS</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:0.08em;color:#fff;margin-bottom:20px;">보컬 · 발성 무료 진단 신청</div>
+      <form action="https://formspree.io/f/mredvnnv" method="POST">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;">
+        <div>
+          <label style="font-size:11px;color:rgba(255,255,255,0.4);display:block;margin-bottom:4px;">이름 *</label>
+          <input type="text" name="이름" placeholder="홍길동" required style="width:100%;padding:10px 12px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.07);color:#fff;font-size:13px;outline:none;">
         </div>
-        <div class="form-group">
-          <label>보컬 파일 (MP3 · M4A · AAC) · 전문적 평가와 기준 제시</label>
-          <input type="file" accept=".mp3,.m4a,.aac,audio/*" style="padding:10px;border:1.5px solid var(--border);border-radius:10px;width:100%;font-size:13px;background:#fff;cursor:pointer;">
+        <div>
+          <label style="font-size:11px;color:rgba(255,255,255,0.4);display:block;margin-bottom:4px;">연락처 *</label>
+          <input type="tel" name="연락처" placeholder="01000000000" required pattern="[0-9]{10,11}" maxlength="11" oninput="this.value=this.value.replace(/[^0-9]/g,'')" style="width:100%;padding:10px 12px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.07);color:#fff;font-size:13px;outline:none;">
         </div>
-        <div class="form-group">
-          <label>메모 (선택)</label>
-          <textarea placeholder="장르, 목표, 궁금한 점 등 자유롭게 적어주세요." style="height:44px;"></textarea>
-        </div>
-        <a href="https://tally.so/r/rjvGjL" target="_blank" class="submit-btn" style="display:block;text-align:center;text-decoration:none;">진단 신청하기</a>
       </div>
+      <div style="margin-bottom:10px;">
+        <label style="font-size:11px;color:rgba(255,255,255,0.4);display:block;margin-bottom:4px;">보컬 파일 첨부 (MP3·M4A·AAC)</label>
+        <a href="https://tally.so/r/rjvGjL" target="_blank" style="display:flex;align-items:center;gap:8px;padding:10px 14px;border-radius:8px;border:1px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.7);font-size:13px;text-decoration:none;width:fit-content;">
+          📎 파일 올리기
+        </a>
+      </div>
+      <div style="margin-bottom:10px;">
+        <label style="font-size:11px;color:rgba(255,255,255,0.4);display:block;margin-bottom:4px;">답변 받을 방법 *</label>
+        <select name="답변방법" required style="width:100%;padding:10px 12px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.07);color:#fff;font-size:13px;outline:none;">
+          <option value="" style="background:#222;">선택해주세요</option>
+          <option style="background:#222;">전화</option>
+          <option style="background:#222;">문자</option>
+        </select>
+      </div>
+      <div style="margin-bottom:16px;">
+        <label style="font-size:11px;color:rgba(255,255,255,0.4);display:block;margin-bottom:4px;">메모 (선택)</label>
+        <textarea name="메모" placeholder="장르, 목표, 궁금한 점 등" style="width:100%;padding:10px 12px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.07);color:#fff;font-size:13px;outline:none;resize:none;height:60px;"></textarea>
+      </div>
+      <button type="submit" style="width:100%;text-align:center;background:#c8f135;color:#111;font-weight:700;font-size:14px;padding:13px;border-radius:10px;border:none;cursor:pointer;letter-spacing:0.04em;">진단 신청하기</button>
+      </form>
     </div>
 
-    <!-- 오른쪽: 레슨 및 견적 상담 -->
-    <div class="reveal" style="display:flex;flex-direction:column;">
-      <div class="form-card" id="formWrap" style="flex:1;">
-        <div class="form-title">레슨 및 제작 문의</div>
-        <div class="form-row-2">
-          <div class="form-group">
-            <label>이름</label>
-            <input type="text" placeholder="홍길동">
-          </div>
-          <div class="form-group">
-            <label>연락처</label>
-            <input type="text" placeholder="010-0000-0000">
-          </div>
+    <!-- 오른쪽: 레슨 및 제작 문의 -->
+    <div style="background:rgba(255,255,255,0.05);border-radius:16px;border:1px solid rgba(255,255,255,0.1);padding:24px;">
+      <div style="font-size:9px;letter-spacing:0.22em;color:rgba(200,241,53,0.6);margin-bottom:4px;">LESSON INQUIRY</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:0.08em;color:#fff;margin-bottom:20px;">레슨 및 제작 문의</div>
+      <form action="https://formspree.io/f/mgoqbggn" method="POST">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;">
+        <div>
+          <label style="font-size:11px;color:rgba(255,255,255,0.4);display:block;margin-bottom:4px;">이름 *</label>
+          <input type="text" name="이름" placeholder="홍길동" required style="width:100%;padding:10px 12px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.07);color:#fff;font-size:13px;outline:none;">
         </div>
-        <div class="form-group">
-          <label>관심 과목</label>
-          <select>
-            <option value="">선택해주세요</option>
-            <option>보컬 [A] (16만원)</option>
-            <option>보컬 [B] (20만원 · 연습실·코드반주)</option>
-            <option>싱어송라이터 (30만원)</option>
-            <option>작곡 (30만원)</option>
-            <option>미디 작곡 [A] (20만원 · DAW·시퀀싱)</option>
-            <option>미디 작곡 [B] (30만원 · 하드웨어 전반)</option>
-            <option>코드 편곡 &amp; 건반 화성 (20만원)</option>
-            <option>믹싱·마스터링 (30만원)</option>
-            <option>그 외 과목 문의</option>
-            <option>기타 문의</option>
-          </select>
+        <div>
+          <label style="font-size:11px;color:rgba(255,255,255,0.4);display:block;margin-bottom:4px;">연락처 *</label>
+          <input type="tel" name="연락처" placeholder="01000000000" required pattern="[0-9]{10,11}" maxlength="11" oninput="this.value=this.value.replace(/[^0-9]/g,'')" style="width:100%;padding:10px 12px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.07);color:#fff;font-size:13px;outline:none;">
         </div>
-        <div class="form-group">
-          <label>메시지</label>
-          <textarea placeholder="편하게 적어주세요."></textarea>
-        </div>
-        <a href="https://tally.so/r/aQvZRq" target="_blank" class="submit-btn" style="display:block;text-align:center;text-decoration:none;">상담 신청하기</a>
       </div>
-      <div class="success-msg" id="successMsg">
-        <div class="success-emoji">🎉</div>
-        <div class="success-title">신청 완료!</div>
-        <div class="success-sub">빠르게 연락드릴게요 😊</div>
+      <div style="margin-bottom:10px;">
+        <label style="font-size:11px;color:rgba(255,255,255,0.4);display:block;margin-bottom:4px;">관심 과목</label>
+        <select name="관심과목" style="width:100%;padding:10px 12px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.07);color:#fff;font-size:13px;outline:none;">
+          <option value="" style="background:#222;">선택해주세요</option>
+          <option style="background:#222;">보컬 [A] (16만원)</option>
+          <option style="background:#222;">보컬 [B] (20만원 · 연습실·코드반주)</option>
+          <option style="background:#222;">싱어송라이터 (30만원)</option>
+          <option style="background:#222;">작곡 (30만원)</option>
+          <option style="background:#222;">미디 작곡 [A] (20만원 · DAW·시퀀싱)</option>
+          <option style="background:#222;">미디 작곡 [B] (30만원 · 하드웨어 전반)</option>
+          <option style="background:#222;">코드 편곡 &amp; 건반 화성 (20만원)</option>
+          <option style="background:#222;">믹싱·마스터링 (30만원)</option>
+          <option style="background:#222;">그 외 과목 문의</option>
+          <option style="background:#222;">기타 문의</option>
+        </select>
       </div>
+      <div style="margin-bottom:10px;">
+        <label style="font-size:11px;color:rgba(255,255,255,0.4);display:block;margin-bottom:4px;">답변 받을 방법 *</label>
+        <select name="답변방법" required style="width:100%;padding:10px 12px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.07);color:#fff;font-size:13px;outline:none;">
+          <option value="" style="background:#222;">선택해주세요</option>
+          <option style="background:#222;">전화</option>
+          <option style="background:#222;">문자</option>
+        </select>
+      </div>
+      <div style="margin-bottom:16px;">
+        <label style="font-size:11px;color:rgba(255,255,255,0.4);display:block;margin-bottom:4px;">메시지</label>
+        <textarea name="메시지" placeholder="편하게 적어주세요." style="width:100%;padding:10px 12px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.07);color:#fff;font-size:13px;outline:none;resize:none;height:60px;"></textarea>
+      </div>
+      <button type="submit" style="width:100%;text-align:center;background:#c8f135;color:#111;font-weight:700;font-size:14px;padding:13px;border-radius:10px;border:none;cursor:pointer;letter-spacing:0.04em;">상담 신청하기</button>
+      </form>
     </div>
 
   </div>
+</section>
 
   <!-- 지도 -->
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:40px;" class="reveal">
