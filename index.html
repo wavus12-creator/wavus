@@ -1001,17 +1001,17 @@ footer {
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;">
         <div>
           <label style="font-size:11px;color:rgba(255,255,255,0.4);display:block;margin-bottom:4px;">이름 *</label>
-          <input type="text" name="이름" placeholder="홍길동" required style="width:100%;padding:10px 12px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.07);color:#fff;font-size:13px;outline:none;">
+          <input type="text" id="diagName" name="이름" placeholder="홍길동" required oninput="checkFileBtn()" style="width:100%;padding:10px 12px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.07);color:#fff;font-size:13px;outline:none;">
         </div>
         <div>
           <label style="font-size:11px;color:rgba(255,255,255,0.4);display:block;margin-bottom:4px;">연락처 *</label>
-          <input type="tel" name="연락처" placeholder="01000000000" required pattern="[0-9]{10,11}" maxlength="11" oninput="this.value=this.value.replace(/[^0-9]/g,'')" style="width:100%;padding:10px 12px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.07);color:#fff;font-size:13px;outline:none;">
+          <input type="tel" id="diagTel" name="연락처" placeholder="01000000000" required pattern="[0-9]{10,11}" maxlength="11" oninput="this.value=this.value.replace(/[^0-9]/g,'');checkFileBtn()" style="width:100%;padding:10px 12px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.07);color:#fff;font-size:13px;outline:none;">
         </div>
       </div>
       <div style="margin-bottom:10px;">
         <label style="font-size:11px;color:rgba(255,255,255,0.4);display:block;margin-bottom:4px;">보컬 파일 첨부 (MP3·M4A·AAC)</label>
-        <a href="https://tally.so/r/rjvGjL" target="_blank" style="display:flex;align-items:center;gap:8px;padding:10px 14px;border-radius:8px;border:1px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.7);font-size:13px;text-decoration:none;width:fit-content;">
-          📎 파일 올리기
+        <a id="fileUploadBtn" href="#" onclick="checkAndUpload(event)" style="display:flex;align-items:center;gap:8px;padding:10px 14px;border-radius:8px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.04);color:rgba(255,255,255,0.3);font-size:13px;text-decoration:none;width:fit-content;cursor:not-allowed;">
+          📎 파일 올리기 (이름·연락처 먼저 입력)
         </a>
       </div>
       <div style="margin-bottom:10px;">
@@ -1081,13 +1081,13 @@ footer {
 </section>
 
   <!-- 지도 -->
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:40px;" class="reveal">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:20px;padding:0 40px 40px;" class="reveal">
     <div>
       <div style="font-size:11px;font-weight:700;color:var(--muted);letter-spacing:0.08em;margin-bottom:8px;">📍 레슨 스튜디오</div>
       <div style="font-size:12px;color:var(--black);margin-bottom:10px;">충북 청주시 서원구 1순환로 698 4층 10호</div>
       <div style="border-radius:14px;overflow:hidden;border:1.5px solid var(--border);">
         <iframe src="https://www.google.com/maps?q=충청북도+청주시+서원구+1순환로+698&hl=ko&output=embed"
-          width="100%" height="220" frameborder="0" style="display:block;" allowfullscreen></iframe>
+          width="100%" height="280" frameborder="0" style="display:block;" allowfullscreen></iframe>
       </div>
     </div>
     <div>
@@ -1095,7 +1095,7 @@ footer {
       <div style="font-size:12px;color:var(--black);margin-bottom:10px;">충북 청주시 서원구 무심서로 383 B1</div>
       <div style="border-radius:14px;overflow:hidden;border:1.5px solid var(--border);">
         <iframe src="https://www.google.com/maps?q=충청북도+청주시+서원구+무심서로+383&hl=ko&output=embed"
-          width="100%" height="220" frameborder="0" style="display:block;" allowfullscreen></iframe>
+          width="100%" height="280" frameborder="0" style="display:block;" allowfullscreen></iframe>
       </div>
     </div>
   </div>
@@ -1490,6 +1490,42 @@ function initGateCanvas() {
 </footer>
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+// 파일 업로드 버튼 활성화
+function checkFileBtn() {
+  const name = document.getElementById('diagName');
+  const tel = document.getElementById('diagTel');
+  const btn = document.getElementById('fileUploadBtn');
+  if (!name || !tel || !btn) return;
+  const ok = name.value.trim().length > 0 && tel.value.length >= 10;
+  if (ok) {
+    btn.href = 'https://tally.so/r/rjvGjL';
+    btn.target = '_blank';
+    btn.style.cursor = 'pointer';
+    btn.style.color = 'rgba(255,255,255,0.7)';
+    btn.style.borderColor = 'rgba(255,255,255,0.15)';
+    btn.style.background = 'rgba(255,255,255,0.07)';
+    btn.textContent = '📎 파일 올리기';
+  } else {
+    btn.href = '#';
+    btn.removeAttribute('target');
+    btn.style.cursor = 'not-allowed';
+    btn.style.color = 'rgba(255,255,255,0.3)';
+    btn.style.borderColor = 'rgba(255,255,255,0.1)';
+    btn.style.background = 'rgba(255,255,255,0.04)';
+    btn.textContent = '📎 파일 올리기 (이름·연락처 먼저 입력)';
+  }
+}
+
+function checkAndUpload(e) {
+  const name = document.getElementById('diagName');
+  const tel = document.getElementById('diagTel');
+  if (!name.value.trim() || tel.value.length < 10) {
+    e.preventDefault();
+    name.style.borderColor = name.value.trim() ? 'rgba(255,255,255,0.12)' : '#ff4d4d';
+    tel.style.borderColor = tel.value.length >= 10 ? 'rgba(255,255,255,0.12)' : '#ff4d4d';
+  }
+}
+
 // Scroll reveal
 const observer = new IntersectionObserver(entries => {
   entries.forEach((e, i) => {
