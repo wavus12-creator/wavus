@@ -1107,7 +1107,7 @@ footer {
         </div>
         <div>
           <label style="font-size:11px;color:rgba(255,255,255,0.4);display:block;margin-bottom:4px;">연락처 *</label>
-          <input type="tel" id="diagTel" name="연락처" placeholder="01000000000" required pattern="[0-9]{10,11}" maxlength="11" oninput="this.value=this.value.replace(/[^0-9]/g,'');checkFileBtn()" style="width:100%;padding:10px 12px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.07);color:#fff;font-size:13px;outline:none;">
+          <input type="tel" id="diagTel" name="연락처" placeholder="010-0000-0000" required pattern="[0-9]{10,11}" maxlength="11" oninput="this.value=this.value.replace(/[^0-9]/g,'');checkFileBtn()" style="width:100%;padding:10px 12px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.07);color:#fff;font-size:13px;outline:none;">
         </div>
       </div>
       <div style="margin-bottom:10px;">
@@ -1144,7 +1144,7 @@ footer {
         </div>
         <div>
           <label style="font-size:11px;color:rgba(255,255,255,0.4);display:block;margin-bottom:4px;">연락처 *</label>
-          <input type="tel" name="연락처" placeholder="01000000000" required pattern="[0-9]{10,11}" maxlength="11" oninput="this.value=this.value.replace(/[^0-9]/g,'')" style="width:100%;padding:10px 12px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.07);color:#fff;font-size:13px;outline:none;">
+          <input type="tel" name="연락처" placeholder="010-0000-0000" required pattern="[0-9]{10,11}" maxlength="11" oninput="this.value=this.value.replace(/[^0-9]/g,'')" style="width:100%;padding:10px 12px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.07);color:#fff;font-size:13px;outline:none;">
         </div>
       </div>
       <div style="margin-bottom:10px;">
@@ -1633,19 +1633,16 @@ function checkAndUpload(e) {
 function applyMobile() {
   const isMobile = window.innerWidth <= 768;
 
-  // 1. 히어로 사진 모바일에서 세로로 표시
+  // 1. 히어로 패딩 증가 + 사진 세로로
+  const hero = document.getElementById('hero');
+  if (hero) {
+    hero.style.paddingTop = isMobile ? '110px' : '';
+    const grid = hero.querySelector('div[style*="grid"]');
+    if (grid) grid.style.display = isMobile ? 'block' : '';
+  }
   const hp = document.getElementById('heroPhoto');
   if (hp) {
-    if (isMobile) {
-      hp.style.cssText = 'position:relative!important;top:auto!important;right:auto!important;transform:none!important;width:100%!important;margin-top:24px;display:block!important;';
-      const hero = document.getElementById('hero');
-      if (hero) {
-        const grid = hero.querySelector('div[style*="grid"]');
-        if (grid) grid.style.display = 'block';
-      }
-    } else {
-      hp.style.cssText = '';
-    }
+    hp.style.cssText = isMobile ? 'position:relative!important;top:auto!important;right:auto!important;transform:none!important;width:100%!important;margin-top:24px;display:block!important;' : '';
   }
 
   // 2. 코스 1열
@@ -1667,14 +1664,13 @@ function applyMobile() {
   const ag = document.getElementById('adultGrid');
   if (ag) ag.style.gridTemplateColumns = isMobile ? 'repeat(4,1fr)' : 'repeat(8,1fr)';
 
-  // 6. 청소년 4열 2줄(8개)만
+  // 6. 청소년 4열 8개만
   const yg = document.getElementById('youthGrid');
   if (yg) {
     if (isMobile) {
       yg.style.display = 'grid';
       yg.style.gridTemplateColumns = 'repeat(4,1fr)';
       yg.style.flexWrap = '';
-      // 8개만 보이게
       const items = yg.children;
       for (let i = 0; i < items.length; i++) {
         items[i].style.display = i < 8 ? '' : 'none';
@@ -1685,17 +1681,27 @@ function applyMobile() {
       yg.style.gridTemplateColumns = '';
       yg.style.flexWrap = 'nowrap';
       const items = yg.children;
-      for (let i = 0; i < items.length; i++) {
-        items[i].style.display = '';
-      }
+      for (let i = 0; i < items.length; i++) items[i].style.display = '';
     }
   }
 
-  // 7. 지도 여백 없애기
-  const mapGrid = document.querySelector('div[style*="grid-template-columns:1fr 1fr"][style*="padding"]');
+  // 7. 지도 여백 줄이기
+  const mapGrid = document.querySelector('div[id="mapGrid"]') || document.querySelector('div[style*="grid-template-columns:1fr 1fr"][style*="padding"]');
   if (mapGrid && isMobile) {
     mapGrid.style.padding = '0 8px 24px';
     mapGrid.style.gap = '8px';
+  }
+
+  // 8. 푸터 로고 중앙
+  const footer = document.querySelector('footer');
+  if (footer) {
+    if (isMobile) {
+      footer.style.textAlign = 'center';
+      const ld = footer.querySelector('div');
+      if (ld) ld.style.justifyContent = 'center';
+    } else {
+      footer.style.textAlign = '';
+    }
   }
 }
 applyMobile();
