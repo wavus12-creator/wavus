@@ -209,7 +209,7 @@ section { padding: 48px 48px 48px 48px; max-width: none; }
 }
 #courses .services-grid { grid-template-columns: repeat(6,1fr); gap: 8px; }
 .service-card {
-  border-radius: 16px; padding: 24px 20px;
+  border-radius: 16px; padding: 18px 16px;
   display:flex; flex-direction:column; height:auto;
   position: relative; overflow: hidden;
   transition: transform 0.3s ease;
@@ -489,7 +489,6 @@ footer {
   .nav-links { display:none; }
   section { padding: 72px 20px; }
   #hero { padding: 100px 20px 60px; }
-  .services-grid { grid-template-columns:1fr; }
   .pricing-grid { grid-template-columns:1fr; }
   .contact-grid { grid-template-columns:1fr; }
   .form-row-2 { grid-template-columns:1fr; }
@@ -551,6 +550,55 @@ footer {
   text-shadow:0 0 12px rgba(200,255,0,0.5);
 }
 @media(max-width:900px){ .hero-studio-photo { display:none; } }
+
+@media(max-width:768px){
+  /* 공통 */
+  section { padding: 40px 16px !important; }
+  .label-row { padding: 0 16px; }
+
+  /* 장비 섹션 */
+  .equipment-grid { grid-template-columns:1fr !important; }
+
+  /* 강사 섹션 */
+  .instructors-grid { grid-template-columns:1fr !important; }
+
+  /* 릴리즈 섹션 */
+  .releases-grid { grid-template-columns:repeat(2,1fr) !important; }
+
+  /* 서비스 카드 - 코스는 2열 유지 */
+  #courses .services-grid { grid-template-columns: repeat(2,1fr) !important; }
+  .services-grid { grid-template-columns:1fr !important; }
+
+  /* 상담 섹션 */
+  #contact { padding: 24px 16px !important; }
+  #contact > div[style*="grid-template-columns:1fr 1fr"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* 지도 */
+  div[style*="grid-template-columns:1fr 1fr"][style*="padding"] {
+    grid-template-columns: 1fr !important;
+    padding: 16px !important;
+  }
+
+  /* 회원방 */
+  #memberRoom { padding: 60px 16px 40px !important; }
+  #memberRoom > div > div[style*="grid-template-columns:1fr 1fr"] {
+    grid-template-columns: 1fr !important;
+  }
+  #memberRoom div[style*="grid-template-columns:1fr 1fr 1fr"] {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+
+  /* 푸터 */
+  footer { padding: 20px 16px !important; flex-direction: column; align-items: flex-start; gap: 8px; }
+
+  /* 폼 이름/연락처 */
+  div[style*="grid-template-columns:1fr 1fr"][style*="gap:10px"] {
+    grid-template-columns: 1fr !important;
+  }
+}
 </style>
 </head>
 <body>
@@ -679,7 +727,7 @@ footer {
       </div>
       <div style="border-left:2px solid rgba(0,0,0,0.25);padding-left:10px;margin-bottom:12px;">
         <div style="font-size:12px;font-weight:700;color:var(--black);margin-bottom:4px;">보컬</div>
-        <p style="font-size:11px;color:rgba(0,0,0,0.7);line-height:1.6;margin:0 0 8px;">검증된 커리큘럼으로 발성·보컬 이해를 한번에 정리 · 상담과 함께 진단 및 기준 제시</p>
+        <p style="font-size:11px;color:rgba(0,0,0,0.7);line-height:1.5;margin:0 0 8px;">검증된 커리큘럼으로 발성·보컬 이해를 한번에 정리 · 진단 및 기준 제시</p>
         <div style="display:flex;flex-wrap:wrap;gap:4px;">
           <span style="background:rgba(0,0,0,0.12);border-radius:20px;padding:4px 10px;font-size:11px;color:var(--black);white-space:nowrap;">[A] 16만원</span>
           <span style="background:rgba(0,0,0,0.12);border-radius:20px;padding:4px 10px;font-size:11px;color:var(--black);white-space:nowrap;">[B] 20만원 · 연습실 · 코드반주</span>
@@ -687,7 +735,7 @@ footer {
       </div>
       <div style="border-left:2px solid rgba(255,100,0,0.5);padding-left:10px;">
         <div style="font-size:12px;font-weight:700;color:var(--black);margin-bottom:4px;">싱어송라이터</div>
-        <p style="font-size:11px;color:rgba(0,0,0,0.7);line-height:1.6;margin:0 0 8px;">작사 · 작곡 · 제작 · 보컬 · 랩 · 미디 + 코드 편곡 + 작곡(탑라이닝) 한번에</p>
+        <p style="font-size:11px;color:rgba(0,0,0,0.7);line-height:1.5;margin:0 0 8px;">작사 · 작곡 · 제작 · 보컬 · 랩 · 미디 + 코드 편곡을 한번에</p>
         <div style="display:flex;flex-wrap:wrap;gap:4px;">
           <span style="background:rgba(0,0,0,0.12);border-radius:20px;padding:4px 10px;font-size:11px;color:var(--black);white-space:nowrap;">30만원</span>
         </div>
