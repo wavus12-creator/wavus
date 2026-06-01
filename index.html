@@ -922,7 +922,7 @@ footer {
 <!-- INSTRUCTORS -->
 <section id="instructors" style="background:var(--bg);">
   <div class="label-row reveal"><span class="label-pill">Instructors</span></div>
-  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;" class="reveal">
+  <div id="instructorsGrid" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;" class="reveal">
 
     <!-- 강사 1: Jung Myung Sue -->
     <div style="border-radius:16px;overflow:hidden;border:1.5px solid #ccc;display:flex;">
@@ -1575,8 +1575,8 @@ function initGateCanvas() {
 </script>
 
 <!-- FOOTER -->
-<footer style="padding:16px 20px;background:var(--black);">
-  <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;">
+<footer style="padding:16px 20px;background:var(--black);text-align:center;">
+  <div style="display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:10px;">
     <svg width="18" height="18" viewBox="0 0 34 34" fill="none" style="opacity:0.45;flex-shrink:0;">
       <path d="M0 0 L0 17 L17 17 Q17 0 0 0 Z" fill="#ffffff"/>
       <path d="M17 0 L17 17 L34 17 Q34 0 17 0 Z" fill="#ffffff"/>
@@ -1585,7 +1585,7 @@ function initGateCanvas() {
     </svg>
     <div class="footer-copy" style="width:auto;">© 2025 Wavus</div>
   </div>
-  <div style="font-size:11px;color:rgba(255,255,255,0.4);line-height:2;padding-left:4px;">
+  <div style="font-size:11px;color:rgba(255,255,255,0.4);line-height:2;text-align:left;display:inline-block;">
     <span style="color:rgba(255,255,255,0.22);font-size:10px;letter-spacing:0.12em;margin-right:8px;">레슨 스튜디오 .</span>충북 청주시 서원구 1순환로 698 4층 10호<br>
     <span style="color:rgba(255,255,255,0.22);font-size:10px;letter-spacing:0.12em;margin-right:8px;">레코딩 스튜디오 .</span>충북 청주시 서원구 무심서로 383 B1
   </div>
@@ -1632,52 +1632,70 @@ function checkAndUpload(e) {
 // 모바일 반응형 JS
 function applyMobile() {
   const isMobile = window.innerWidth <= 768;
-  
-  // 히어로 사진 모바일에서 보이게
+
+  // 1. 히어로 사진 모바일에서 세로로 표시
   const hp = document.getElementById('heroPhoto');
   if (hp) {
     if (isMobile) {
-      hp.style.position = 'relative';
-      hp.style.top = 'auto';
-      hp.style.right = 'auto';
-      hp.style.transform = 'none';
-      hp.style.width = '100%';
-      hp.style.marginTop = '24px';
-      hp.style.display = 'block';
-      // hero 섹션 세로로
+      hp.style.cssText = 'position:relative!important;top:auto!important;right:auto!important;transform:none!important;width:100%!important;margin-top:24px;display:block!important;';
       const hero = document.getElementById('hero');
       if (hero) {
         const grid = hero.querySelector('div[style*="grid"]');
         if (grid) grid.style.display = 'block';
       }
     } else {
-      hp.style.position = '';
-      hp.style.top = '';
-      hp.style.right = '';
-      hp.style.transform = '';
-      hp.style.width = '';
-      hp.style.marginTop = '';
+      hp.style.cssText = '';
     }
   }
-  
-  // 코스 1열
+
+  // 2. 코스 1열
   const cg = document.getElementById('coursesGrid');
   if (cg) cg.style.gridTemplateColumns = isMobile ? '1fr' : 'repeat(4,1fr)';
-  
-  // 릴리즈 1열
+
+  // 3. 강사 1열
+  const ig = document.getElementById('instructorsGrid');
+  if (ig) ig.style.gridTemplateColumns = isMobile ? '1fr' : '1fr 1fr 1fr';
+
+  // 4. 릴리즈 1열
   const rg = document.getElementById('releasesGrid');
-  if (rg) rg.style.gridTemplateColumns = isMobile ? '1fr' : '1fr 1fr';
-  
-  // 성인반 4열
+  if (rg) {
+    rg.style.gridTemplateColumns = isMobile ? '1fr' : '1fr 1fr';
+    rg.style.gap = isMobile ? '32px' : '40px';
+  }
+
+  // 5. 성인반 4열
   const ag = document.getElementById('adultGrid');
   if (ag) ag.style.gridTemplateColumns = isMobile ? 'repeat(4,1fr)' : 'repeat(8,1fr)';
-  
-  // 청소년 4열
+
+  // 6. 청소년 4열 2줄(8개)만
   const yg = document.getElementById('youthGrid');
   if (yg) {
-    yg.style.display = isMobile ? 'grid' : 'flex';
-    yg.style.gridTemplateColumns = isMobile ? 'repeat(4,1fr)' : '';
-    yg.style.flexWrap = isMobile ? '' : 'nowrap';
+    if (isMobile) {
+      yg.style.display = 'grid';
+      yg.style.gridTemplateColumns = 'repeat(4,1fr)';
+      yg.style.flexWrap = '';
+      // 8개만 보이게
+      const items = yg.children;
+      for (let i = 0; i < items.length; i++) {
+        items[i].style.display = i < 8 ? '' : 'none';
+        items[i].style.minWidth = '';
+      }
+    } else {
+      yg.style.display = 'flex';
+      yg.style.gridTemplateColumns = '';
+      yg.style.flexWrap = 'nowrap';
+      const items = yg.children;
+      for (let i = 0; i < items.length; i++) {
+        items[i].style.display = '';
+      }
+    }
+  }
+
+  // 7. 지도 여백 없애기
+  const mapGrid = document.querySelector('div[style*="grid-template-columns:1fr 1fr"][style*="padding"]');
+  if (mapGrid && isMobile) {
+    mapGrid.style.padding = '0 8px 24px';
+    mapGrid.style.gap = '8px';
   }
 }
 applyMobile();
