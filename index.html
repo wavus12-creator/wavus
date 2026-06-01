@@ -480,7 +480,15 @@ footer {
   text-align: left; padding: 20px;
 }
 @media(max-width:900px) {
-  .hero-studio-photo { display: none; }
+  .hero-studio-photo { 
+    position: relative !important;
+    top: auto !important;
+    right: auto !important;
+    transform: none !important;
+    width: 100% !important;
+    margin-top: 24px;
+  }
+  #hero { overflow: visible !important; }
 }
 
 
@@ -704,7 +712,7 @@ footer {
   </div>
 
   <!-- 우측 모자이크 사진 -->
-  <div class="hero-studio-photo">
+  <div class="hero-studio-photo" id="heroPhoto">
     <div class="studio-mosaic">
       <div class="mosaic-main">
         <img src="photo_main3.jpg" alt="메인 스튜디오" style="width:100%;height:100%;object-fit:cover;display:block;">
@@ -763,7 +771,7 @@ footer {
       <span style="font-size:13px;">★</span> 6개월 이상 회원 &nbsp;·&nbsp; 음원 지원 · 공인 자격증 · 해외 수료증 · 예술 인증 관리 제공
     </span>
   </div>
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;align-items:stretch;">
+    <div id="coursesGrid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;align-items:stretch;">
 
     <div class="service-card sc-1 reveal">
       <h3 class="service-card-name">보컬 · 싱어송라이터</h3>
@@ -982,11 +990,11 @@ footer {
 <!-- RELEASES -->
 <section id="releases">
   <div class="label-row reveal"><span class="label-pill">Releases</span></div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;" class="reveal">
+    <div id="releasesGrid" style="display:grid;grid-template-columns:1fr 1fr;gap:40px;" class="reveal">
     <div>
       <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;color:var(--orange);margin-bottom:8px;text-transform:uppercase;">Single Releases</div>
       <div style="font-size:20px;font-weight:700;color:var(--black);margin-bottom:20px;">성인반</div>
-      <div style="display:grid;grid-template-columns:repeat(8,1fr);gap:4px;">
+      <div id="adultGrid" style="display:grid;grid-template-columns:repeat(8,1fr);gap:4px;">
         <div style="aspect-ratio:1;border-radius:6px;overflow:hidden;"><img src="single1.jpg" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
         <div style="aspect-ratio:1;border-radius:6px;overflow:hidden;"><img src="single2.jpg" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
         <div style="aspect-ratio:1;border-radius:6px;overflow:hidden;"><img src="single3.jpg" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
@@ -1000,7 +1008,7 @@ footer {
     <div>
       <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;color:var(--blue);margin-bottom:8px;text-transform:uppercase;">Youth Releases</div>
       <div style="font-size:20px;font-weight:700;color:var(--black);margin-bottom:16px;">청소년</div>
-      <div style="display:flex;gap:4px;flex-wrap:nowrap;margin-bottom:8px;overflow-x:auto;">
+      <div id="youthGrid" style="display:flex;gap:4px;flex-wrap:nowrap;margin-bottom:8px;overflow-x:auto;">
         <a href="https://soundcloud.com/user-292829763/lv" target="_blank" style="aspect-ratio:1;border-radius:6px;overflow:hidden;border:1px solid var(--border);display:block;position:relative;background:#1a1a2e;">
           <iframe width="100%" height="100%" scrolling="no" frameborder="no" allow="autoplay" style="display:block;pointer-events:none;"
             src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1548751165&color=%23ff5500&auto_play=false&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&visual=true"></iframe>
@@ -1619,6 +1627,61 @@ function checkAndUpload(e) {
     tel.style.borderColor = tel.value.length >= 10 ? 'rgba(255,255,255,0.12)' : '#ff4d4d';
   }
 }
+
+
+// 모바일 반응형 JS
+function applyMobile() {
+  const isMobile = window.innerWidth <= 768;
+  
+  // 히어로 사진 모바일에서 보이게
+  const hp = document.getElementById('heroPhoto');
+  if (hp) {
+    if (isMobile) {
+      hp.style.position = 'relative';
+      hp.style.top = 'auto';
+      hp.style.right = 'auto';
+      hp.style.transform = 'none';
+      hp.style.width = '100%';
+      hp.style.marginTop = '24px';
+      hp.style.display = 'block';
+      // hero 섹션 세로로
+      const hero = document.getElementById('hero');
+      if (hero) {
+        const grid = hero.querySelector('div[style*="grid"]');
+        if (grid) grid.style.display = 'block';
+      }
+    } else {
+      hp.style.position = '';
+      hp.style.top = '';
+      hp.style.right = '';
+      hp.style.transform = '';
+      hp.style.width = '';
+      hp.style.marginTop = '';
+    }
+  }
+  
+  // 코스 1열
+  const cg = document.getElementById('coursesGrid');
+  if (cg) cg.style.gridTemplateColumns = isMobile ? '1fr' : 'repeat(4,1fr)';
+  
+  // 릴리즈 1열
+  const rg = document.getElementById('releasesGrid');
+  if (rg) rg.style.gridTemplateColumns = isMobile ? '1fr' : '1fr 1fr';
+  
+  // 성인반 4열
+  const ag = document.getElementById('adultGrid');
+  if (ag) ag.style.gridTemplateColumns = isMobile ? 'repeat(4,1fr)' : 'repeat(8,1fr)';
+  
+  // 청소년 4열
+  const yg = document.getElementById('youthGrid');
+  if (yg) {
+    yg.style.display = isMobile ? 'grid' : 'flex';
+    yg.style.gridTemplateColumns = isMobile ? 'repeat(4,1fr)' : '';
+    yg.style.flexWrap = isMobile ? '' : 'nowrap';
+  }
+}
+applyMobile();
+window.addEventListener('resize', applyMobile);
 
 // Scroll reveal
 const observer = new IntersectionObserver(entries => {
