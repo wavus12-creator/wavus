@@ -653,6 +653,26 @@ footer {
 @media(max-width:768px){
   #courses .services-grid { grid-template-columns: 1fr !important; }
 }
+
+@media(max-width:768px){
+  .courses-grid-wrap { grid-template-columns: 1fr !important; }
+  .instructors-grid-wrap { grid-template-columns: 1fr !important; }
+  .releases-grid-wrap { grid-template-columns: 1fr !important; gap: 32px !important; }
+  #hero { padding-top: 110px !important; overflow: visible !important; }
+  .hero-studio-photo { 
+    position: relative !important; top: auto !important; 
+    right: auto !important; transform: none !important; 
+    width: 100% !important; margin-top: 24px !important;
+  }
+  #adultGrid { grid-template-columns: repeat(4,1fr) !important; }
+  #youthGrid { 
+    display: grid !important; 
+    grid-template-columns: repeat(4,1fr) !important;
+    flex-wrap: wrap !important;
+  }
+  footer { text-align: center !important; }
+  footer > div:first-child { justify-content: center !important; }
+}
 </style>
 </head>
 <body>
@@ -771,7 +791,7 @@ footer {
       <span style="font-size:13px;">★</span> 6개월 이상 회원 &nbsp;·&nbsp; 음원 지원 · 공인 자격증 · 해외 수료증 · 예술 인증 관리 제공
     </span>
   </div>
-    <div id="coursesGrid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;align-items:stretch;">
+    <div id="coursesGrid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;align-items:stretch;" class="courses-grid-wrap">
 
     <div class="service-card sc-1 reveal">
       <h3 class="service-card-name">보컬 · 싱어송라이터</h3>
@@ -922,7 +942,7 @@ footer {
 <!-- INSTRUCTORS -->
 <section id="instructors" style="background:var(--bg);">
   <div class="label-row reveal"><span class="label-pill">Instructors</span></div>
-  <div id="instructorsGrid" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;" class="reveal">
+  <div id="instructorsGrid" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;" class="instructors-grid-wrap" class="reveal">
 
     <!-- 강사 1: Jung Myung Sue -->
     <div style="border-radius:16px;overflow:hidden;border:1.5px solid #ccc;display:flex;">
@@ -990,7 +1010,7 @@ footer {
 <!-- RELEASES -->
 <section id="releases">
   <div class="label-row reveal"><span class="label-pill">Releases</span></div>
-    <div id="releasesGrid" style="display:grid;grid-template-columns:1fr 1fr;gap:40px;" class="reveal">
+    <div id="releasesGrid" style="display:grid;grid-template-columns:1fr 1fr;gap:40px;" class="releases-grid-wrap" class="reveal">
     <div>
       <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;color:var(--orange);margin-bottom:8px;text-transform:uppercase;">Single Releases</div>
       <div style="font-size:20px;font-weight:700;color:var(--black);margin-bottom:20px;">성인반</div>
