@@ -207,7 +207,7 @@ section { padding: 48px 48px 48px 48px; max-width: none; }
 .services-grid {
   display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;
 }
-#courses .services-grid { grid-template-columns: repeat(6,1fr); gap: 8px; }
+#courses .services-grid { grid-template-columns: repeat(4,1fr); gap: 8px; }
 .service-card {
   border-radius: 16px; padding: 18px 16px;
   display:flex; flex-direction:column; height:auto;
@@ -641,6 +641,9 @@ footer {
   .pricing-grid { grid-template-columns:1fr; }
   .contact-grid { grid-template-columns:1fr; }
   .form-row-2 { grid-template-columns:1fr; }
+}
+@media(max-width:768px){
+  #courses .services-grid { grid-template-columns: 1fr !important; }
 }
 </style>
 </head>
