@@ -54,14 +54,16 @@ body.dark-mode .service-card.sc-4 .service-card-name { color: #fff !important; }
 body.dark-mode .service-card.sc-4 p { color: rgba(255,255,255,0.7) !important; }
 body.dark-mode .service-card.sc-1,
 body.dark-mode .service-card.sc-2 { color: #f0f0f0; }
-body.dark-mode .service-card.sc-1 p,
-body.dark-mode .service-card.sc-2 p { color: rgba(255,255,255,0.75) !important; }
+body.dark-mode .service-card.sc-1 *,
+body.dark-mode .service-card.sc-2 * { color: rgba(255,255,255,0.85) !important; }
 body.dark-mode .service-card.sc-1 .service-card-name,
-body.dark-mode .service-card.sc-2 .service-card-name { color: #f0f0f0 !important; }
-body.dark-mode .service-card.sc-1 div[style*="font-size:12px;font-weight:700"],
-body.dark-mode .service-card.sc-2 div[style*="font-size:12px;font-weight:700"] { color: #f0f0f0 !important; }
-body.dark-mode .service-card.sc-1 [style*="background:rgba(0,0,0,0.12)"],
-body.dark-mode .service-card.sc-2 [style*="background:rgba(0,0,0,0.12)"] { background: rgba(255,255,255,0.12) !important; color: #f0f0f0 !important; }
+body.dark-mode .service-card.sc-2 .service-card-name { color: #fff !important; }
+body.dark-mode .service-card.sc-1 [style*="color:#ff7c43"],
+body.dark-mode .service-card.sc-2 [style*="color:#ff7c43"] { color: #ff7c43 !important; }
+body.dark-mode .service-card.sc-1 [style*="color:var(--lime)"],
+body.dark-mode .service-card.sc-2 [style*="color:var(--lime)"] { color: var(--lime) !important; }
+body.dark-mode .service-card.sc-1 [style*="background:rgba(0,0,0"],
+body.dark-mode .service-card.sc-2 [style*="background:rgba(0,0,0"] { background: rgba(255,255,255,0.12) !important; }
 
 /* 믹싱카드 가격 */
 body.dark-mode .service-card.sc-4 span { color: #fff !important; }
@@ -895,17 +897,17 @@ body.dark-mode .mosaic-badge {
         </div>
         <div style="display:flex;align-items:center;gap:7px;">
           <span style="width:5px;height:5px;background:var(--lime);border-radius:50%;flex-shrink:0;"></span>
-          <span style="font-size:12px;color:rgba(255,255,255,0.8);font-weight:600;white-space:nowrap;">공인 자격증 관리</span>
+          <span style="font-size:12px;color:rgba(255,255,255,0.8);font-weight:600;white-space:nowrap;">공인 자격증</span>
         </div>
         <div style="display:flex;align-items:center;gap:7px;">
           <span style="width:5px;height:5px;background:var(--lime);border-radius:50%;flex-shrink:0;"></span>
-          <span style="font-size:12px;color:rgba(255,255,255,0.8);font-weight:600;white-space:nowrap;">해외 수료증 취득 지원</span>
+          <span style="font-size:12px;color:rgba(255,255,255,0.8);font-weight:600;white-space:nowrap;">해외 수료증 취득</span>
         </div>
         <div style="display:flex;align-items:center;gap:7px;">
           <span style="width:5px;height:5px;background:var(--lime);border-radius:50%;flex-shrink:0;"></span>
-          <span style="font-size:12px;color:rgba(255,255,255,0.8);font-weight:600;white-space:nowrap;">예술 활동 인증 관리</span>
+          <span style="font-size:12px;color:rgba(255,255,255,0.8);font-weight:600;white-space:nowrap;">예술인 활동 인증</span>
         </div>
-        <span style="font-size:11px;color:rgba(255,255,255,0.3);margin-left:4px;white-space:nowrap;">* 청소년 및 입시는 상담 후 장소 협의</span>
+        <span style="font-size:11px;color:rgba(255,255,255,0.9);margin-left:4px;white-space:nowrap;">* 본 교육 및 프로듀싱 과정은 사전 승인된 수강 회원에 한하여 크레딧 기반으로 진행됩니다.</span>
       </div>
     </div>
   </div>
@@ -920,14 +922,14 @@ body.dark-mode .mosaic-badge {
         <div style="font-size:12px;font-weight:700;color:var(--black);margin-bottom:3px;">보컬</div>
         <p style="font-size:11px;color:rgba(0,0,0,0.7);line-height:1.5;margin:0 0 6px;">검증된 커리큘럼으로 보컬의 이해를 한번에 정리</p>
         <div style="display:flex;flex-wrap:wrap;gap:4px;">
-          <span style="background:rgba(0,0,0,0.12);border-radius:20px;padding:3px 9px;font-size:11px;color:var(--black);white-space:nowrap;">[A] 16만원</span>
-          <span style="background:rgba(0,0,0,0.12);border-radius:20px;padding:3px 9px;font-size:11px;color:var(--black);white-space:nowrap;">[B] 20만원 · 연습실 · 코드반주</span>
+          <span style="background:rgba(0,0,0,0.1);border-radius:20px;padding:3px 10px;font-size:10px;color:rgba(0,0,0,0.45);font-family:'Plus Jakarta Sans',sans-serif;font-weight:500;letter-spacing:0.03em;white-space:nowrap;">[A] ₩160,000</span>
+          <span style="background:rgba(0,0,0,0.1);border-radius:20px;padding:3px 10px;font-size:10px;color:rgba(0,0,0,0.45);font-family:'Plus Jakarta Sans',sans-serif;font-weight:500;letter-spacing:0.03em;white-space:nowrap;">[B] ₩200,000 · 연습실 · 코드반주</span>
         </div>
       </div>
       <div style="border-left:3px solid #ff6200;padding-left:10px;">
         <div style="font-size:12px;font-weight:700;color:var(--black);margin-bottom:3px;">싱어송라이터</div>
         <p style="font-size:11px;color:rgba(0,0,0,0.7);line-height:1.5;margin:0 0 6px;">작사 · 작곡 · 제작 · 보컬 · 랩 · 미디 + 코드 편곡을 한번에</p>
-        <span style="background:rgba(0,0,0,0.12);border-radius:20px;padding:3px 9px;font-size:11px;color:var(--black);white-space:nowrap;">30만원</span>
+        <span style="background:rgba(0,0,0,0.12);border-radius:20px;padding:3px 9px;font-size:10px;color:rgba(0,0,0,0.45);font-family:'Plus Jakarta Sans',sans-serif;font-weight:500;letter-spacing:0.03em;white-space:nowrap;">₩300,000</span>
       </div>
       <div style="flex:1;"></div>
     </div>
@@ -937,14 +939,14 @@ body.dark-mode .mosaic-badge {
       <div style="border-left:3px solid rgba(0,0,0,0.5);padding-left:10px;margin-bottom:10px;">
         <div style="font-size:12px;font-weight:700;color:var(--black);margin-bottom:3px;">작곡</div>
         <p style="font-size:11px;color:rgba(0,0,0,0.7);line-height:1.6;margin:0 0 6px;">올라운드 작·편곡 완성 · 건반 화성 + 미디 + 믹싱</p>
-        <span style="background:rgba(0,0,0,0.12);border-radius:20px;padding:3px 9px;font-size:11px;color:var(--black);">30만원</span>
+        <span style="background:rgba(0,0,0,0.12);border-radius:20px;padding:3px 9px;font-size:10px;color:rgba(0,0,0,0.45);font-family:'Plus Jakarta Sans',sans-serif;font-weight:500;letter-spacing:0.03em;">₩300,000</span>
       </div>
       <div style="border-left:3px solid #ff6200;padding-left:10px;">
         <div style="font-size:12px;font-weight:700;color:var(--black);margin-bottom:3px;">미디 작곡</div>
         <p style="font-size:11px;color:rgba(0,0,0,0.7);line-height:1.6;margin:0 0 6px;">트랙메이커부터 탑라이너까지 전문 특화 · 퍼블리싱 준비반</p>
         <div style="display:flex;flex-wrap:wrap;gap:4px;">
-          <span style="background:rgba(0,0,0,0.12);border-radius:20px;padding:3px 9px;font-size:11px;color:var(--black);white-space:nowrap;">[A] 20만원 · DAW·시퀀싱</span>
-          <span style="background:rgba(0,0,0,0.12);border-radius:20px;padding:3px 9px;font-size:11px;color:var(--black);white-space:nowrap;">[B] 30만원 · 하드웨어 전반</span>
+          <span style="background:rgba(0,0,0,0.1);border-radius:20px;padding:3px 10px;font-size:10px;color:rgba(0,0,0,0.45);font-family:'Plus Jakarta Sans',sans-serif;font-weight:500;letter-spacing:0.03em;white-space:nowrap;">[A] ₩200,000 · DAW·시퀀싱</span>
+          <span style="background:rgba(0,0,0,0.1);border-radius:20px;padding:3px 10px;font-size:10px;color:rgba(0,0,0,0.45);font-family:'Plus Jakarta Sans',sans-serif;font-weight:500;letter-spacing:0.03em;white-space:nowrap;">[B] ₩300,000 · 하드웨어 전반</span>
         </div>
       </div>
       <div style="flex:1;"></div>
@@ -959,7 +961,7 @@ body.dark-mode .mosaic-badge {
         <p style="font-size:11px;color:#666;margin:0;">· 최대 6개월 완료 시 평생 자유로운 코드 건반 · 코드 편곡 보장</p>
       </div>
       <div style="flex:1;"></div>
-      <span style="background:rgba(0,0,0,0.08);border-radius:20px;padding:3px 9px;font-size:11px;color:#111;display:inline-block;margin-top:10px;">20만원</span>
+      <span style="background:rgba(0,0,0,0.08);border-radius:20px;padding:3px 9px;font-size:10px;color:rgba(0,0,0,0.45);font-family:'Plus Jakarta Sans',sans-serif;font-weight:500;letter-spacing:0.03em;display:inline-block;margin-top:10px;">₩200,000</span>
     </div>
 
     <div class="service-card sc-4 reveal">
@@ -969,7 +971,7 @@ body.dark-mode .mosaic-badge {
         <p style="font-size:11px;color:rgba(255,255,255,0.5);margin:0;">· 트랙킹부터 하드웨어를 활용한 시그널 체인 구성</p>
       </div>
       <div style="flex:1;"></div>
-      <span style="background:rgba(255,255,255,0.15);border-radius:20px;padding:3px 9px;font-size:11px;color:var(--white);display:inline-block;margin-top:10px;">30만원</span>
+      <span style="background:rgba(255,255,255,0.15);border-radius:20px;padding:3px 9px;font-size:10px;color:rgba(255,255,255,0.5);font-family:"Plus Jakarta Sans",sans-serif;font-weight:500;letter-spacing:0.03em;display:inline-block;margin-top:10px;">₩300,000</span>
     </div>
 
   </div>
@@ -1075,7 +1077,7 @@ body.dark-mode .mosaic-badge {
               <div style="font-size:9px;font-weight:700;color:var(--lime);background:#111;display:inline-block;padding:2px 7px;border-radius:20px;letter-spacing:0.05em;margin-bottom:4px;">VOCAL · MIXING</div>
               <h3 style="font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:0.04em;line-height:1;margin:0 0 2px;">Jung Myung Sue</h3>
               <div style="font-size:10px;color:var(--muted);">정명수</div>
-              <div style="font-size:9px;color:#ccc;">과외교습신고 제6511호</div>
+              
             </div>
           </div>
           <div style="background:#111;border-radius:9px;padding:10px 12px;">
@@ -1123,7 +1125,7 @@ body.dark-mode .mosaic-badge {
               <div style="font-size:9px;font-weight:700;color:var(--orange);letter-spacing:0.05em;margin-bottom:4px;">작곡 · 편곡 · 제작</div>
               <h3 style="font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:0.04em;line-height:1;margin:0 0 2px;">Yoo Jung Geun</h3>
               <div style="font-size:10px;color:var(--muted);">유정근</div>
-              <div style="font-size:9px;color:#ccc;">과외교습신고 제6533호</div>
+              
             </div>
           </div>
         </div>
@@ -1201,8 +1203,8 @@ body.dark-mode .mosaic-badge {
       </div>
     </div>
     <div>
-      <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;color:var(--blue);margin-bottom:8px;text-transform:uppercase;">Youth Releases</div>
-      <div style="font-size:20px;font-weight:700;color:var(--black);margin-bottom:16px;">청소년</div>
+      <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;color:var(--blue);margin-bottom:8px;text-transform:uppercase;">YOUTH ARCHIVE</div>
+      <div style="font-size:20px;font-weight:700;color:var(--black);margin-bottom:16px;">유스</div>
       <div id="youthGrid" style="display:flex;gap:4px;flex-wrap:nowrap;margin-bottom:8px;overflow-x:auto;">
         <a href="https://soundcloud.com/user-292829763/lv" target="_blank" style="aspect-ratio:1;border-radius:6px;overflow:hidden;border:1px solid var(--border);display:block;position:relative;background:#1a1a2e;">
           <iframe width="100%" height="100%" scrolling="no" frameborder="no" allow="autoplay" style="display:block;pointer-events:none;"
@@ -1258,8 +1260,8 @@ body.dark-mode .mosaic-badge {
         </a>
       </div>
       <!-- 업로드 예정 안내 -->
-      <div style="margin-top:8px;font-size:11px;color:var(--muted);display:flex;align-items:center;gap:6px;">
-        <span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--border);flex-shrink:0;"></span>
+      <div style="margin-top:8px;font-size:11px;color:#888;display:flex;align-items:center;gap:6px;">
+        <span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#aaa;flex-shrink:0;"></span>
         추가 음원 업로드 예정
       </div>
     </div>
