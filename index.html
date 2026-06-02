@@ -212,7 +212,7 @@ section { padding: 48px 48px 48px 48px; max-width: none; }
 #courses .courses-grid-wrap > div { height: 100%; }
 .service-card {
   border-radius: 16px; padding: 18px 16px;
-  display:flex; flex-direction:column; height:100%;
+  display:flex; flex-direction:column; height:100%; box-sizing:border-box;
   position: relative; overflow: hidden;
   transition: transform 0.3s ease;
   cursor: default;
@@ -582,11 +582,7 @@ footer {
   #hero { padding: 80px 16px 40px !important; }
   #hero > div[style*="grid"] { display: block !important; }
   .hero-studio-photo {
-    position: relative !important;
-    top: auto !important; right: auto !important;
-    transform: none !important;
-    width: 100% !important;
-    margin-top: 24px;
+    display: none !important;
   }
 
   /* marquee 겹침 방지 - hero CTA 아래로 */
@@ -733,7 +729,7 @@ footer {
     <span class="chip">트랙메이커/탑라이너</span>
   </div>
 
-  <p class="hero-desc">목적에 맞춘 전문 커리큘럼 제공 및 제작</p>
+  <p class="hero-desc">레슨 · 음원 제작 · 믹싱 마스터링</p>
 
   <div class="hero-cta-row">
     <a href="#contact" class="btn-primary">지금 문의하기 →</a>
@@ -820,9 +816,11 @@ footer {
         <span style="width:6px;height:6px;background:var(--lime);border-radius:50%;flex-shrink:0;"></span>
         <span style="font-size:12px;color:rgba(255,255,255,0.8);font-weight:600;white-space:nowrap;">예술 활동 인증 관리</span>
       </div>
+      <div style="width:1px;height:20px;background:rgba(255,255,255,0.1);flex-shrink:0;"></div>
+      <span style="font-size:11px;color:rgba(255,255,255,0.35);white-space:nowrap;">* 청소년 및 입시는 상담 후 장소 협의</span>
     </div>
   </div>
-    <div id="coursesGrid" style="display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:1fr;gap:12px;" class="courses-grid-wrap">
+    <div id="coursesGrid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;" class="courses-grid-wrap">
 
     <div class="service-card sc-1 reveal">
       <h3 class="service-card-name">보컬 · 싱어송라이터</h3>
@@ -831,7 +829,7 @@ footer {
       </div>
       <div style="border-left:3px solid rgba(0,0,0,0.55);padding-left:10px;margin-bottom:10px;">
         <div style="font-size:12px;font-weight:700;color:var(--black);margin-bottom:3px;">보컬</div>
-        <p style="font-size:11px;color:rgba(0,0,0,0.7);line-height:1.5;margin:0 0 6px;">검증된 커리큘럼과 현직 노하우로 잘못된 보컬의 이해를 한번에 정리</p>
+        <p style="font-size:11px;color:rgba(0,0,0,0.7);line-height:1.5;margin:0 0 6px;">검증된 커리큘럼으로 보컬의 이해를 한번에 정리</p>
         <div style="display:flex;flex-wrap:wrap;gap:4px;">
           <span style="background:rgba(0,0,0,0.12);border-radius:20px;padding:3px 9px;font-size:11px;color:var(--black);white-space:nowrap;">[A] 16만원</span>
           <span style="background:rgba(0,0,0,0.12);border-radius:20px;padding:3px 9px;font-size:11px;color:var(--black);white-space:nowrap;">[B] 20만원 · 연습실 · 코드반주</span>
@@ -849,12 +847,12 @@ footer {
       <h3 class="service-card-name">작곡 · 미디 작곡</h3>
       <div style="border-left:3px solid rgba(0,0,0,0.5);padding-left:10px;margin-bottom:10px;">
         <div style="font-size:12px;font-weight:700;color:var(--black);margin-bottom:3px;">작곡</div>
-        <p style="font-size:11px;color:rgba(0,0,0,0.7);line-height:1.6;margin:0 0 6px;">올라운드 작·편곡의 완성 · 코드 편곡 및 건반 화성 + 미디 + 믹싱</p>
+        <p style="font-size:11px;color:rgba(0,0,0,0.7);line-height:1.6;margin:0 0 6px;">올라운드 작·편곡 완성 · 건반 화성 + 미디 + 믹싱</p>
         <span style="background:rgba(0,0,0,0.12);border-radius:20px;padding:3px 9px;font-size:11px;color:var(--black);">30만원</span>
       </div>
       <div style="border-left:3px solid #ff6200;padding-left:10px;">
         <div style="font-size:12px;font-weight:700;color:var(--black);margin-bottom:3px;">미디 작곡</div>
-        <p style="font-size:11px;color:rgba(0,0,0,0.7);line-height:1.6;margin:0 0 6px;">트랙메이커부터 탑라이너까지 전문 특화 및 퍼블리싱 준비반</p>
+        <p style="font-size:11px;color:rgba(0,0,0,0.7);line-height:1.6;margin:0 0 6px;">트랙메이커부터 탑라이너까지 전문 특화 · 퍼블리싱 준비반</p>
         <div style="display:flex;flex-wrap:wrap;gap:4px;">
           <span style="background:rgba(0,0,0,0.12);border-radius:20px;padding:3px 9px;font-size:11px;color:var(--black);white-space:nowrap;">[A] 20만원 · DAW·시퀀싱</span>
           <span style="background:rgba(0,0,0,0.12);border-radius:20px;padding:3px 9px;font-size:11px;color:var(--black);white-space:nowrap;">[B] 30만원 · 하드웨어 전반</span>
@@ -992,7 +990,7 @@ footer {
             </div>
           </div>
           <div style="background:#111;border-radius:9px;padding:10px 12px;">
-            <div style="font-size:9px;font-weight:700;letter-spacing:0.1em;color:var(--lime);margin-bottom:5px;">Mentored Artists</div>
+            <div style="font-size:9px;font-weight:700;letter-spacing:0.1em;color:var(--lime);margin-bottom:5px;">지도 아티스트</div>
             <div style="font-size:10px;color:rgba(255,255,255,0.7);line-height:1.8;">
               비스트 · 케이시 · 맵식스<br>
               박초롱 · 신비 · 진진(ASTRO)<br>
@@ -1064,7 +1062,7 @@ footer {
         <div style="display:flex;flex-direction:column;gap:12px;">
           <div style="display:flex;gap:12px;align-items:center;">
             <div style="flex-shrink:0;width:60px;height:72px;border-radius:9px;overflow:hidden;background:#1a1a1a;border:1.5px solid #c8d8e8;">
-              <img src="instructor3.png" alt="이승현" style="width:100%;height:100%;object-fit:cover;object-position:center top;display:block;filter:brightness(1.05);">
+              <img src="instructor3.png" alt="이승현" style="width:100%;height:100%;object-fit:cover;object-position:center 20%;display:block;filter:brightness(1.1) contrast(1.05);" onerror="this.parentElement.style.background='#2a2a2a'">
             </div>
             <div>
               <div style="font-size:9px;font-weight:700;color:#4a90d9;letter-spacing:0.05em;margin-bottom:4px;">음향 · 작곡 · 제작</div>
@@ -1215,7 +1213,7 @@ footer {
         <label style="font-size:11px;color:rgba(255,255,255,0.4);display:block;margin-bottom:4px;">메모 (선택)</label>
         <textarea name="메모" placeholder="장르, 목표, 궁금한 점 등" style="width:100%;padding:10px 12px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.07);color:#fff;font-size:13px;outline:none;resize:none;height:60px;"></textarea>
       </div>
-      <button type="submit" style="width:100%;text-align:center;background:#c8f135;color:#111;font-weight:700;font-size:14px;padding:13px;border-radius:10px;border:none;cursor:pointer;letter-spacing:0.04em;">진단 신청하기</button>
+      <button type="submit" style="width:100%;text-align:center;background:#c8f135;color:#111;font-weight:700;font-size:14px;padding:13px;border-radius:10px;border:none;cursor:pointer;letter-spacing:0.04em;">진단 신청</button>
       </form>
     </div>
 
@@ -1262,7 +1260,7 @@ footer {
         <label style="font-size:11px;color:rgba(255,255,255,0.4);display:block;margin-bottom:4px;">메시지</label>
         <textarea name="메시지" placeholder="편하게 적어주세요." style="width:100%;padding:10px 12px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.07);color:#fff;font-size:13px;outline:none;resize:none;height:60px;"></textarea>
       </div>
-      <button type="submit" style="width:100%;text-align:center;background:#c8f135;color:#111;font-weight:700;font-size:14px;padding:13px;border-radius:10px;border:none;cursor:pointer;letter-spacing:0.04em;">상담 신청하기</button>
+      <button type="submit" style="width:100%;text-align:center;background:#c8f135;color:#111;font-weight:700;font-size:14px;padding:13px;border-radius:10px;border:none;cursor:pointer;letter-spacing:0.04em;">상담 신청</button>
       </form>
     </div>
 
@@ -1728,7 +1726,7 @@ function applyMobile() {
   }
   const hp = document.getElementById('heroPhoto');
   if (hp) {
-    hp.style.cssText = isMobile ? 'position:relative!important;top:auto!important;right:auto!important;transform:none!important;width:100%!important;margin-top:24px;display:block!important;' : '';
+    hp.style.cssText = isMobile ? 'display:none!important;' : '';
   }
 
   // 2. 코스 1열
