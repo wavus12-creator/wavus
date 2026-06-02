@@ -21,6 +21,85 @@
   --border: #e8e4df;
 }
 
+/* 다크모드 */
+body.dark-mode {
+  --bg: #141414;
+  --white: #1e1e1e;
+  --black: #f0f0f0;
+  --lime: #c8f135;
+  --orange: #ff6b35;
+  --blue: #5b7bff;
+  --pink: #ff4d8d;
+  --text: #f0f0f0;
+  --muted: #999;
+  --card: #1e1e1e;
+  --border: #2e2e2e;
+}
+body.dark-mode { background: var(--bg); color: var(--text); }
+
+/* 섹션 배경 */
+body.dark-mode #services { background: #1a1a1a; }
+body.dark-mode #courses { background: #141414; }
+body.dark-mode #pricing { background: #141414; }
+body.dark-mode #contact { background: #0a0a0a; }
+body.dark-mode #instructors { background: #141414; }
+body.dark-mode #releases { background: #141414; }
+body.dark-mode #equipment { background: #0f0f0f; }
+
+/* 코스 카드 */
+body.dark-mode .service-card.sc-1 { background: #1d2a00; }
+body.dark-mode .service-card.sc-2 { background: #2a1500; }
+body.dark-mode .service-card.sc-4 { background: #0a0a0a !important; border:1px solid #333; }
+body.dark-mode .service-card.sc-4 .service-card-name { color: #fff !important; }
+body.dark-mode .service-card.sc-4 p { color: rgba(255,255,255,0.7) !important; }
+body.dark-mode .service-card.sc-1,
+body.dark-mode .service-card.sc-2 { color: #f0f0f0; }
+body.dark-mode .service-card.sc-1 p,
+body.dark-mode .service-card.sc-2 p { color: rgba(255,255,255,0.75) !important; }
+body.dark-mode .service-card.sc-1 .service-card-name,
+body.dark-mode .service-card.sc-2 .service-card-name { color: #f0f0f0 !important; }
+body.dark-mode .service-card.sc-1 div[style*="font-size:12px;font-weight:700"],
+body.dark-mode .service-card.sc-2 div[style*="font-size:12px;font-weight:700"] { color: #f0f0f0 !important; }
+body.dark-mode .service-card.sc-1 [style*="background:rgba(0,0,0,0.12)"],
+body.dark-mode .service-card.sc-2 [style*="background:rgba(0,0,0,0.12)"] { background: rgba(255,255,255,0.12) !important; color: #f0f0f0 !important; }
+
+/* 믹싱카드 가격 */
+body.dark-mode .service-card.sc-4 span { color: #fff !important; }
+body.dark-mode .service-card.sc-4 [style*="background:rgba(255,255,255"] { background: rgba(255,255,255,0.25) !important; color: #fff !important; }
+
+/* 코드편곡 카드 — 라이트모드와 동일하게 */
+body.dark-mode .service-card[style*="background:#e8f4ff"] { background: #e8f4ff !important; }
+body.dark-mode .service-card[style*="background:#e8f4ff"] * { color: #111 !important; }
+body.dark-mode .service-card[style*="background:#e8f4ff"] [style*="color:#ff7c43"],
+body.dark-mode .service-card[style*="background:#e8f4ff"] span[style*="color:#ff7c43"] { color: #ff7c43 !important; }
+
+/* 강사 카드 */
+body.dark-mode #instructors [style*="background:var(--white)"],
+body.dark-mode #instructors [style*="background: var(--white)"] { background: #1e1e1e !important; }
+body.dark-mode #instructors [style*="border-top:1px solid var(--border)"] { border-color: #333 !important; }
+body.dark-mode #instructors [style*="border:1.5px solid #d8d4cf"] { border-color: #333 !important; }
+
+/* 칩·태그 */
+body.dark-mode .chip { background:#222; border-color:#333; color:#ddd; }
+body.dark-mode .chip:hover { background:var(--lime); color:#111; }
+body.dark-mode .hero-tag { background:#222; border-color:#333; }
+body.dark-mode .section-heading { color: #f0f0f0; }
+body.dark-mode .label-pill { background: #f0f0f0; color: #111; }
+body.dark-mode .btn-primary { background: var(--orange); color: #fff; }
+body.dark-mode .btn-primary:hover { background: #fff; color: var(--orange); }
+
+/* 다크모드 토글 힌트 */
+.logo-toggle-hint {
+  position:absolute;
+  top:calc(100% + 6px); left:0;
+  background:#c8f135; color:#111;
+  font-size:9px; font-weight:700; letter-spacing:0.06em;
+  padding:3px 8px; border-radius:20px;
+  white-space:nowrap; pointer-events:none;
+  opacity:0; transition:opacity 0.2s;
+}
+.nav-logo:hover .logo-toggle-hint { opacity:1; }
+
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
 
@@ -57,12 +136,12 @@ nav {
 }
 .nav-links a:hover { color: var(--white); }
 .nav-cta {
-  background: var(--lime); color: var(--black);
+  background: var(--lime); color: #111;
   padding: 10px 22px; border-radius: 100px;
   font-size: 13px; font-weight: 700;
   text-decoration: none; transition: background 0.2s, transform 0.2s;
 }
-.nav-cta:hover { background: var(--white); transform: scale(1.04); }
+.nav-cta:hover { background: var(--white); color: #111; transform: scale(1.04); }
 
 /* HERO */
 #hero {
@@ -129,13 +208,13 @@ nav {
 
 }
 .btn-primary {
-  background: var(--black); color: var(--white);
+  background: var(--lime); color: var(--black);
   padding: 16px 36px; border-radius: 100px;
   font-size: 15px; font-weight: 700;
   text-decoration: none; transition: all 0.2s;
   display: inline-flex; align-items: center; gap: 8px;
 }
-.btn-primary:hover { background: var(--orange); transform: translateY(-2px); }
+.btn-primary:hover { background: var(--black); color: var(--lime); transform: translateY(-2px); }
 .btn-secondary {
   background: transparent; color: var(--black);
   padding: 16px 36px; border-radius: 100px;
@@ -534,11 +613,18 @@ footer {
 }
 .mosaic-badge {
   position:absolute; bottom:16px; right:16px;
-  background:var(--black); color:var(--white);
+  background:#111; color:#fff;
   border-radius:14px; padding:10px 16px;
   font-size:12px; font-weight:700;
   display:flex; align-items:center; gap:8px;
   z-index:3; box-shadow:0 4px 16px rgba(0,0,0,0.3);
+  border:1.5px solid transparent;
+  transition:border-color 0.3s;
+}
+body.dark-mode .mosaic-badge {
+  background:#111;
+  border-color:var(--lime);
+  box-shadow:0 4px 20px rgba(200,241,53,0.15);
 }
 .mosaic-badge-dot {
   width:8px; height:8px; border-radius:50%;
@@ -685,13 +771,15 @@ footer {
 
 <!-- NAV -->
 <nav>
-  <a href="#" class="nav-logo">
+  <a href="#" class="nav-logo" onclick="toggleDarkMode();return false;" title="테마 전환" style="position:relative;">
     <svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:inline-block;vertical-align:middle;margin-right:10px;">
       <path d="M0 0 L0 17 L17 17 Q17 0 0 0 Z" fill="#ffffff"/>
       <path d="M17 0 L17 17 L34 17 Q34 0 17 0 Z" fill="#ffffff"/>
       <path d="M0 17 L0 34 L17 34 Q17 17 0 17 Z" fill="#ffffff"/>
       <path d="M17 17 L17 34 L34 34 Q34 17 17 17 Z" fill="#ffffff"/>
-    </svg><span>WAVUS</span></a>
+    </svg><span>WAVUS</span>
+    <span class="logo-toggle-hint">테마 전환</span>
+  </a>
   <ul class="nav-links">
     <li><a href="#courses">과목</a></li>
     <li><a href="#equipment">장비</a></li>
@@ -863,15 +951,15 @@ footer {
     </div>
 
     <div class="service-card reveal" style="background:#e8f4ff;">
-      <h3 class="service-card-name">코드 편곡 &amp; 건반 화성</h3>
+      <h3 class="service-card-name" style="color:#111;">코드 편곡 &amp; 건반 화성</h3>
       <div style="border-left:3px solid rgba(0,0,0,0.45);padding-left:10px;">
-        <p style="font-size:11px;color:var(--black);line-height:1.6;margin:0 0 4px;">반주 및 작·편곡을 위한 선택이 아닌 <span style="color:#ff7c43;font-weight:700;">필수</span> 커리큘럼</p>
+        <p style="font-size:11px;color:#111;line-height:1.6;margin:0 0 4px;">반주 및 작·편곡을 위한 선택이 아닌 <span style="color:#ff7c43;font-weight:700;">필수</span> 커리큘럼</p>
         <p style="font-size:11px;color:#ff7c43;margin:0 0 6px;">(악보 초견 위주의 학원식 수업 ✕)</p>
-        <p style="font-size:11px;color:var(--muted);margin:0 0 4px;">· 원리 이해 → 코드편곡(리하모니제이션) → 자유로운 반주·편곡까지</p>
-        <p style="font-size:11px;color:var(--muted);margin:0;">· 최대 6개월 완료 시 평생 자유로운 코드 건반 · 코드 편곡 보장</p>
+        <p style="font-size:11px;color:#666;margin:0 0 4px;">· 원리 이해 → 코드편곡(리하모니제이션) → 자유로운 반주·편곡까지</p>
+        <p style="font-size:11px;color:#666;margin:0;">· 최대 6개월 완료 시 평생 자유로운 코드 건반 · 코드 편곡 보장</p>
       </div>
       <div style="flex:1;"></div>
-      <span style="background:rgba(0,0,0,0.08);border-radius:20px;padding:3px 9px;font-size:11px;color:var(--black);display:inline-block;margin-top:10px;">20만원</span>
+      <span style="background:rgba(0,0,0,0.08);border-radius:20px;padding:3px 9px;font-size:11px;color:#111;display:inline-block;margin-top:10px;">20만원</span>
     </div>
 
     <div class="service-card sc-4 reveal">
@@ -1063,13 +1151,13 @@ footer {
         <div style="display:flex;flex-direction:column;gap:12px;">
           <div style="display:flex;gap:12px;align-items:center;">
             <div style="flex-shrink:0;width:60px;height:72px;border-radius:9px;overflow:hidden;background:#1a1a1a;border:1.5px solid #c8d8e8;position:relative;">
-              <img src="instructor3.png" alt="이승현" style="width:100%;height:100%;object-fit:cover;object-position:center 20%;display:block;filter:brightness(1.1) contrast(1.05);" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
-              <div style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;background:#1e2a38;flex-direction:column;gap:3px;">
-                <div style="font-family:'Bebas Neue',sans-serif;font-size:11px;letter-spacing:0.08em;color:#4a90d9;line-height:1;">이승현</div>
+              <img id="img3" src="instructor3.png" alt="이승현" style="width:100%;height:100%;object-fit:cover;object-position:60% 20%;display:block;filter:brightness(1.15) contrast(1.05);" onerror="this.src='instructor3_.png';this.onerror=function(){this.style.display='none';document.getElementById('img3fb').style.display='flex';}">
+              <div id="img3fb" style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;background:#1e2a38;">
+                <div style="font-family:'Bebas Neue',sans-serif;font-size:11px;letter-spacing:0.08em;color:#4a90d9;">LSH</div>
               </div>
             </div>
             <div>
-              <div style="font-size:9px;font-weight:700;color:#4a90d9;letter-spacing:0.05em;margin-bottom:4px;">음향 · 작곡 · 제작</div>
+              <div style="font-size:9px;font-weight:700;color:#4a90d9;letter-spacing:0.05em;margin-bottom:4px;">음향 제작</div>
               <h3 style="font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:0.04em;line-height:1;margin:0 0 2px;">Lee Seung Hyun</h3>
               <div style="font-size:10px;color:var(--muted);">이승현</div>
             </div>
@@ -1078,9 +1166,9 @@ footer {
 
         <div style="display:flex;flex-direction:column;gap:8px;padding-top:4px;">
           <div>
-            <div style="font-size:9px;font-weight:700;color:var(--muted);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:2px;">소속 · 활동</div>
+            <div style="font-size:9px;font-weight:700;color:var(--muted);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:2px;">소속 · 제작</div>
             <div style="font-size:10px;color:var(--black);font-weight:600;line-height:1.7;">파도공작소 대표</div>
-            <div style="font-size:10px;color:var(--muted);line-height:1.7;">음향 · 작곡 전문 강사</div>
+            
           </div>
         </div>
 
@@ -1496,6 +1584,28 @@ footer {
 
 <script>
 /* ================================
+   🌙 다크모드 토글
+   ================================ */
+function toggleDarkMode() {
+  const body = document.body;
+  const isDark = body.classList.toggle('dark-mode');
+  localStorage.setItem('wavus-theme', isDark ? 'dark' : 'light');
+  // 로고 SVG 색상 전환
+  const logoPaths = document.querySelectorAll('.nav-logo svg path');
+  logoPaths.forEach(p => p.setAttribute('fill', isDark ? '#c8f135' : '#ffffff'));
+}
+// 저장된 테마 복원
+(function() {
+  const saved = localStorage.getItem('wavus-theme');
+  if (saved === 'dark') {
+    document.body.classList.add('dark-mode');
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.nav-logo svg path').forEach(p => p.setAttribute('fill','#c8f135'));
+    });
+  }
+})();
+
+/* ================================
    🔑 회원 비밀번호 변경
    아래 숫자 5자리를 원하는 번호로 바꾸세요
    ================================ */
@@ -1663,7 +1773,7 @@ function initGateCanvas() {
 </script>
 
 <!-- FOOTER -->
-<footer style="padding:16px 20px;background:var(--black);text-align:center;display:flex;flex-direction:column;align-items:center;">
+<footer style="padding:16px 20px;background:#111;text-align:center;display:flex;flex-direction:column;align-items:center;">
   <div style="display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:10px;">
     <svg width="18" height="18" viewBox="0 0 34 34" fill="none" style="opacity:0.45;flex-shrink:0;">
       <path d="M0 0 L0 17 L17 17 Q17 0 0 0 Z" fill="#ffffff"/>
