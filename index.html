@@ -289,7 +289,8 @@ section { padding: 48px 48px 48px 48px; max-width: none; }
   display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;
 }
 #courses .services-grid { grid-template-columns: repeat(4,1fr); gap: 8px; }
-#courses .courses-grid-wrap { align-items: stretch; }
+#equipWrap { align-items: stretch; }
+#equipPhotos { grid-auto-rows: 1fr; }
 #courses .courses-grid-wrap > div { height: 100%; }
 .service-card {
   border-radius: 16px; padding: 18px 16px;
@@ -715,8 +716,10 @@ body.dark-mode .mosaic-badge {
   #contact > div[style*="grid-template-columns"] { grid-template-columns: 1fr !important; gap: 16px !important; }
   #contact div[style*="grid-template-columns:1fr 1fr"] { grid-template-columns: 1fr !important; }
 
-  /* 혜택 배너 모바일 2열 */
-  #benefitRow { display:grid !important; grid-template-columns:1fr 1fr !important; gap:10px !important; }
+  /* 지도 아티스트 모바일 - PC와 동일 4-3 유지 */
+  #benefitRow { display:grid !important; grid-template-columns:1fr 1fr !important; gap:6px 20px !important; max-width:none !important; }
+  #benefitRow + div { margin-top:6px !important; }
+  #benefitCredit { display:block !important; margin-top:8px !important; }
   /* 지도 - 가로 2개 유지 꽉차게 */
   #mapGrid {
     grid-template-columns: 1fr !important;
@@ -736,7 +739,8 @@ body.dark-mode .mosaic-badge {
   /* 장비 - 텍스트 먼저, 사진 다음 */
   #equipWrap { flex-direction: column !important; }
   #equipText { order: 1 !important; width: 100% !important; }
-  #equipPhotos { order: 2 !important; width: 100% !important; grid-template-columns: repeat(4,1fr) !important; }
+  #equipPhotos { order: 2 !important; width: 100% !important; grid-template-columns: repeat(4,1fr) !important; grid-auto-rows: auto !important; }
+  #equipPhotos > div { aspect-ratio: 1 !important; }
 
   /* 기타 */
   .pricing-grid { grid-template-columns:1fr; }
@@ -888,26 +892,30 @@ body.dark-mode .mosaic-badge {
 
   <!-- 6개월 회원 혜택 배너 -->
   <div style="margin-bottom:16px;border-radius:12px;overflow:hidden;border:1.5px solid #222;" class="reveal">
-    <div style="background:#111;padding:14px 20px;">
-      <div style="font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:0.06em;color:var(--lime);margin-bottom:10px;">6개월 이상 장기 회원 전용</div>
-      <div id="benefitRow" style="display:flex;align-items:center;gap:20px;flex-wrap:wrap;">
-        <div style="display:flex;align-items:center;gap:7px;">
+    <div style="background:#111;padding:10px 20px;">
+      <!-- 1줄: 제목 + 크레딧 문구 -->
+      <div style="display:flex;align-items:baseline;gap:16px;margin-bottom:7px;flex-wrap:wrap;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:0.06em;color:var(--lime);white-space:nowrap;">6개월 이상 장기 회원 전용</div>
+        <div id="benefitCredit" style="font-size:11px;color:rgba(255,255,255,0.9);">* 본 교육 및 프로듀싱 과정은 사전 승인된 수강 회원에 한하여 크레딧 기반으로 진행됩니다.</div>
+      </div>
+      <!-- 2줄: 항목 4개 가로 -->
+      <div id="benefitRow" style="display:flex;align-items:center;gap:24px;flex-wrap:nowrap;">
+        <div style="display:flex;align-items:center;gap:6px;">
           <span style="width:5px;height:5px;background:var(--lime);border-radius:50%;flex-shrink:0;"></span>
           <span style="font-size:12px;color:rgba(255,255,255,0.8);font-weight:600;white-space:nowrap;">음원 제작 지원</span>
         </div>
-        <div style="display:flex;align-items:center;gap:7px;">
+        <div style="display:flex;align-items:center;gap:6px;">
           <span style="width:5px;height:5px;background:var(--lime);border-radius:50%;flex-shrink:0;"></span>
           <span style="font-size:12px;color:rgba(255,255,255,0.8);font-weight:600;white-space:nowrap;">공인 자격증</span>
         </div>
-        <div style="display:flex;align-items:center;gap:7px;">
+        <div style="display:flex;align-items:center;gap:6px;">
           <span style="width:5px;height:5px;background:var(--lime);border-radius:50%;flex-shrink:0;"></span>
           <span style="font-size:12px;color:rgba(255,255,255,0.8);font-weight:600;white-space:nowrap;">해외 수료증 취득</span>
         </div>
-        <div style="display:flex;align-items:center;gap:7px;">
+        <div style="display:flex;align-items:center;gap:6px;">
           <span style="width:5px;height:5px;background:var(--lime);border-radius:50%;flex-shrink:0;"></span>
           <span style="font-size:12px;color:rgba(255,255,255,0.8);font-weight:600;white-space:nowrap;">예술인 활동 인증</span>
         </div>
-        <span style="font-size:11px;color:rgba(255,255,255,0.9);margin-left:4px;white-space:nowrap;">* 본 교육 및 프로듀싱 과정은 사전 승인된 수강 회원에 한하여 크레딧 기반으로 진행됩니다.</span>
       </div>
     </div>
   </div>
@@ -982,40 +990,40 @@ body.dark-mode .mosaic-badge {
 <!-- EQUIPMENT -->
 <section id="equipment" style="background:var(--bg);">
   <div class="label-row reveal"><span class="label-pill">Equipment</span></div>
-  <div style="display:flex;flex-wrap:wrap;gap:0;align-items:stretch;" class="reveal" id="equipWrap">
+  <div style="display:flex;gap:0;align-items:stretch;" class="reveal" id="equipWrap">
 
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:0;min-height:100%;width:50%;" id="equipText">
       <div style="background:#111;padding:10px 14px;border-left:3px solid var(--lime);border-bottom:1px solid rgba(255,255,255,0.06);border-right:1px solid rgba(255,255,255,0.04);">
         <div style="font-size:9px;color:rgba(255,255,255,0.3);letter-spacing:2px;margin-bottom:3px;">INTERFACE</div>
-        <div style="font-size:10px;font-weight:500;color:#fff;line-height:1.7;">Metric Halo LIO-8/4 MkIV · Merging Technologies Anubis · SPL Creon</div>
+        <div style="font-size:10px;font-weight:500;color:#fff;line-height:1.7;">Metric Halo LIO-8/4 MkIV<br>Merging Anubis<br>SPL Creon</div>
       </div>
       <div style="background:#111;padding:10px 14px;border-left:3px solid var(--orange);border-bottom:1px solid rgba(255,255,255,0.06);">
         <div style="font-size:9px;color:rgba(255,255,255,0.3);letter-spacing:2px;margin-bottom:3px;">MICROPHONE</div>
-        <div style="font-size:10px;font-weight:500;color:#fff;line-height:1.7;">Neumann TLM 103 · AKG C414 XLII<br>KM184 ×2 · SM57 ×2 · MB85 Beta · PRA383D</div>
+        <div style="font-size:10px;font-weight:500;color:#fff;line-height:1.7;">Neumann TLM 103<br>AKG C414 XLII<br>KM184 ×2 · SM57 ×2<br>MB85 Beta · PRA383D</div>
       </div>
       <div style="background:#111;padding:10px 14px;border-left:3px solid var(--blue);border-bottom:1px solid rgba(255,255,255,0.06);border-right:1px solid rgba(255,255,255,0.04);">
         <div style="font-size:9px;color:rgba(255,255,255,0.3);letter-spacing:2px;margin-bottom:3px;">PREAMP / EQ</div>
-        <div style="font-size:10px;font-weight:500;color:#fff;line-height:1.7;">Vintech X73i · Great River ME-1NV<br>Chandler TG2 · API 550B · Carnaby 500 · Midas 502</div>
+        <div style="font-size:10px;font-weight:500;color:#fff;line-height:1.7;">Vintech X73i<br>Great River 500NV<br>Chandler TG2 · API 550B<br>Carnaby 500 · Midas 502</div>
       </div>
       <div style="background:#111;padding:10px 14px;border-left:3px solid var(--pink);border-bottom:1px solid rgba(255,255,255,0.06);">
         <div style="font-size:9px;color:rgba(255,255,255,0.3);letter-spacing:2px;margin-bottom:3px;">COMPRESSOR</div>
-        <div style="font-size:10px;font-weight:500;color:#fff;line-height:1.7;">Tube-Tech CL 1B · WesAudio NG78<br>WesAudio Dione · Elysia Xpressor · Elysia XMAX</div>
+        <div style="font-size:10px;font-weight:500;color:#fff;line-height:1.7;">Tube-Tech CL 1B<br>WesAudio NG78<br>WesAudio Dione · Elysia Xpressor<br>Elysia XMAX</div>
       </div>
       <div style="background:#111;padding:10px 14px;border-left:3px solid var(--lime);border-bottom:1px solid rgba(255,255,255,0.06);border-right:1px solid rgba(255,255,255,0.04);">
         <div style="font-size:9px;color:rgba(255,255,255,0.3);letter-spacing:2px;margin-bottom:3px;">SUMMING / BUS</div>
-        <div style="font-size:10px;font-weight:500;color:#fff;line-height:1.7;">Dangerous Music 2-Bus+ · Rupert Neve Designs MBP</div>
+        <div style="font-size:10px;font-weight:500;color:#fff;line-height:1.7;">Dangerous Music 2-Bus+<br>Rupert Neve Designs MBP</div>
       </div>
       <div style="background:#111;padding:10px 14px;border-left:3px solid var(--orange);border-bottom:1px solid rgba(255,255,255,0.06);">
         <div style="font-size:9px;color:rgba(255,255,255,0.3);letter-spacing:2px;margin-bottom:3px;">500-SERIES CHASSIS</div>
-        <div style="font-size:10px;font-weight:500;color:#fff;line-height:1.7;">Heritage Audio OST-6 · Midas L6</div>
+        <div style="font-size:10px;font-weight:500;color:#fff;line-height:1.7;">Heritage Audio OST-6<br>Midas L6</div>
       </div>
       <div style="background:#111;padding:10px 14px;border-left:3px solid var(--blue);border-bottom:1px solid rgba(255,255,255,0.06);border-right:1px solid rgba(255,255,255,0.04);">
         <div style="font-size:9px;color:rgba(255,255,255,0.3);letter-spacing:2px;margin-bottom:3px;">MONITOR</div>
-        <div style="font-size:10px;font-weight:500;color:#fff;line-height:1.7;">Barefoot Footprint03 · Epic 5<br>MixCube ×2 · Sub 8 · JBL EON 715 ×2</div>
+        <div style="font-size:10px;font-weight:500;color:#fff;line-height:1.7;">Barefoot Footprint03 · Epic 5<br>MixCube ×2 · Sub 8<br>JBL EON 715 ×2</div>
       </div>
       <div style="background:#111;padding:10px 14px;border-left:3px solid var(--pink);border-bottom:1px solid rgba(255,255,255,0.06);">
         <div style="font-size:9px;color:rgba(255,255,255,0.3);letter-spacing:2px;margin-bottom:3px;">HEADPHONE</div>
-        <div style="font-size:10px;font-weight:500;color:#fff;line-height:1.7;">Dunu Arashi · HD650 · ATH-M50x · KNS 6400 · IE100</div>
+        <div style="font-size:10px;font-weight:500;color:#fff;line-height:1.7;">Dunu Arashi · HD650<br>ATH-M50x · KNS 6400<br>IE100</div>
       </div>
       <div style="background:#111;padding:10px 14px;border-left:3px solid var(--lime);border-bottom:1px solid rgba(255,255,255,0.06);border-right:1px solid rgba(255,255,255,0.04);">
         <div style="font-size:9px;color:rgba(255,255,255,0.3);letter-spacing:2px;margin-bottom:3px;">MIXER</div>
@@ -1027,29 +1035,29 @@ body.dark-mode .mosaic-badge {
       </div>
     </div>
 
-    <div id="equipPhotos" style="display:grid;grid-template-columns:repeat(4,1fr);gap:3px;width:50%;">
-      <div style="aspect-ratio:1;overflow:hidden;border-radius:6px;background:#1a1a1a;">
+    <div id="equipPhotos" style="display:grid;grid-template-columns:repeat(4,1fr);gap:3px;width:50%;align-content:start;">
+      <div style="overflow:hidden;border-radius:6px;background:#1a1a1a;min-height:0;flex:1;">
         <img src="KakaoTalk_20260525_235701419_08.jpg" style="width:100%;height:100%;object-fit:cover;display:block;filter:brightness(0.92);">
       </div>
-      <div style="aspect-ratio:1;overflow:hidden;border-radius:6px;background:#1a1a1a;">
+      <div style="overflow:hidden;border-radius:6px;background:#1a1a1a;">
         <img src="KakaoTalk_20260525_235701419_02.jpg" style="width:100%;height:100%;object-fit:cover;display:block;filter:brightness(0.88);">
       </div>
-      <div style="aspect-ratio:1;overflow:hidden;border-radius:6px;background:#1a1a1a;">
+      <div style="overflow:hidden;border-radius:6px;background:#1a1a1a;">
         <img src="g10.jpg" style="width:100%;height:100%;object-fit:cover;display:block;filter:brightness(0.9);">
       </div>
-      <div style="aspect-ratio:1;overflow:hidden;border-radius:6px;background:#1a1a1a;">
+      <div style="overflow:hidden;border-radius:6px;background:#1a1a1a;">
         <img src="g7.jpg" style="width:100%;height:100%;object-fit:cover;display:block;filter:brightness(0.85);">
       </div>
-      <div style="aspect-ratio:1;overflow:hidden;border-radius:6px;background:#1a1a1a;">
+      <div style="overflow:hidden;border-radius:6px;background:#1a1a1a;">
         <img src="g8.jpg" style="width:100%;height:100%;object-fit:cover;display:block;filter:brightness(0.88);">
       </div>
-      <div style="aspect-ratio:1;overflow:hidden;border-radius:6px;background:#1a1a1a;">
+      <div style="overflow:hidden;border-radius:6px;background:#1a1a1a;">
         <img src="g9.jpg" style="width:100%;height:100%;object-fit:cover;display:block;filter:brightness(0.85);">
       </div>
-      <div style="aspect-ratio:1;overflow:hidden;border-radius:6px;background:#1a1a1a;">
+      <div style="overflow:hidden;border-radius:6px;background:#1a1a1a;">
         <img src="g2.jpg" style="width:100%;height:100%;object-fit:cover;display:block;filter:brightness(0.88);">
       </div>
-      <div style="aspect-ratio:1;overflow:hidden;border-radius:6px;background:#1a1a1a;">
+      <div style="overflow:hidden;border-radius:6px;background:#1a1a1a;">
         <img src="g4.jpg" style="width:100%;height:100%;object-fit:cover;display:block;filter:brightness(0.88);" onerror="this.parentElement.style.background='#111';this.style.display='none';">
       </div>
     </div>
@@ -1076,16 +1084,19 @@ body.dark-mode .mosaic-badge {
             <div>
               <div style="font-size:9px;font-weight:700;color:var(--lime);background:#111;display:inline-block;padding:2px 7px;border-radius:20px;letter-spacing:0.05em;margin-bottom:4px;">VOCAL · MIXING</div>
               <h3 style="font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:0.04em;line-height:1;margin:0 0 2px;">Jung Myung Sue</h3>
-              <div style="font-size:10px;color:var(--muted);">정명수</div>
-              
+                            
             </div>
           </div>
-          <div style="background:#111;border-radius:9px;padding:10px 12px;">
-            <div style="font-size:9px;font-weight:700;letter-spacing:0.1em;color:var(--lime);margin-bottom:5px;">지도 아티스트</div>
-            <div style="font-size:10px;color:rgba(255,255,255,0.7);line-height:1.8;">
-              비스트 · 케이시 · 맵식스<br>
-              박초롱(Apink) · 신비(여자친구) · 진진(ASTRO)<br>
-              큐(THE BOYZ) <span style="color:rgba(255,255,255,0.3);font-size:9px;">외 다수</span>
+          <div style="background:#111;border-radius:9px;padding:6px 12px;">
+            <div style="font-size:9px;font-weight:700;letter-spacing:0.1em;color:var(--lime);margin-bottom:4px;">지도 아티스트</div>
+            <div style="display:flex;flex-wrap:wrap;gap:2px 6px;font-size:9.5px;color:rgba(255,255,255,0.7);line-height:1.7;">
+              <span>비스트</span><span style="color:rgba(255,255,255,0.2);">·</span>
+              <span>케이시</span><span style="color:rgba(255,255,255,0.2);">·</span>
+              <span>맵식스(Map6)</span><span style="color:rgba(255,255,255,0.2);">·</span>
+              <span>박초롱(Apink)</span><span style="color:rgba(255,255,255,0.2);">·</span>
+              <span>신비(여자친구)</span><span style="color:rgba(255,255,255,0.2);">·</span>
+              <span>진진(ASTRO)</span><span style="color:rgba(255,255,255,0.2);">·</span>
+              <span>큐(THE BOYZ)</span>
             </div>
           </div>
         </div>
@@ -1099,7 +1110,7 @@ body.dark-mode .mosaic-badge {
           <div>
             <div style="font-size:9px;font-weight:700;color:var(--muted);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:2px;">소속 · 프로덕션</div>
             <div style="font-size:10px;color:var(--black);line-height:1.7;">Cube · DreamT · Fantagio</div>
-            <div style="font-size:10px;color:var(--muted);line-height:1.7;">다날 ent · Vine · Jungle · Neganetwork</div>
+            <div style="font-size:10px;color:var(--muted);line-height:1.7;">Danal · Vine · Jungle · Neganetwork</div>
           </div>
           <div>
             <div style="font-size:9px;font-weight:700;color:var(--muted);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:2px;">수료 · 자격</div>
@@ -1124,8 +1135,7 @@ body.dark-mode .mosaic-badge {
             <div>
               <div style="font-size:9px;font-weight:700;color:var(--orange);letter-spacing:0.05em;margin-bottom:4px;">작곡 · 편곡 · 제작</div>
               <h3 style="font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:0.04em;line-height:1;margin:0 0 2px;">Yoo Jung Geun</h3>
-              <div style="font-size:10px;color:var(--muted);">유정근</div>
-              
+                            
             </div>
           </div>
         </div>
@@ -1161,8 +1171,7 @@ body.dark-mode .mosaic-badge {
             <div>
               <div style="font-size:9px;font-weight:700;color:#4a90d9;letter-spacing:0.05em;margin-bottom:4px;">음향 제작</div>
               <h3 style="font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:0.04em;line-height:1;margin:0 0 2px;">Lee Seung Hyun</h3>
-              <div style="font-size:10px;color:var(--muted);">이승현</div>
-            </div>
+                          </div>
           </div>
         </div>
 
@@ -1493,7 +1502,7 @@ body.dark-mode .mosaic-badge {
         <div style="margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid rgba(255,255,255,0.06);">
           <div style="font-size:11px;color:rgba(255,255,255,0.3);margin-bottom:3px;">계정 2 (프리미엄)</div>
           <div style="font-size:18px;color:#fff;font-family:monospace;">wavus2020</div>
-          <div style="font-size:16px;color:rgba(200,241,53,0.8);font-family:monospace;margin-top:2px;">ww20200629</div>
+          <div style="font-size:16px;color:rgba(200,241,53,0.8);font-family:monospace;margin-top:2px;">ww2020xxxx <span style="font-size:11px;color:rgba(255,255,255,0.35);">(뒷 4자리 문의)</span></div>
         </div>
         <div>
           <div style="font-size:11px;color:rgba(255,255,255,0.3);margin-bottom:3px;">계정 3</div>
