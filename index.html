@@ -30,8 +30,8 @@
   --border: #e8e4df;
 }
 
-/* 다크모드 */
-body.dark-mode {
+/* 다크모드 전환 애니메이션 */
+body { transition: background 0.8s ease, color 0.8s ease; }
   --bg: #141414;
   --white: #1e1e1e;
   --black: #f0f0f0;
@@ -84,11 +84,22 @@ body.dark-mode .service-card[style*="background:#e8f4ff"] * { color: #111 !impor
 body.dark-mode .service-card[style*="background:#e8f4ff"] [style*="color:#ff7c43"],
 body.dark-mode .service-card[style*="background:#e8f4ff"] span[style*="color:#ff7c43"] { color: #ff7c43 !important; }
 
-/* 강사 카드 */
-body.dark-mode #instructors [style*="background:var(--white)"],
-body.dark-mode #instructors [style*="background: var(--white)"] { background: #1e1e1e !important; }
-body.dark-mode #instructors [style*="border-top:1px solid var(--border)"] { border-color: #333 !important; }
+/* 강사 이름 다크모드 */
+body.dark-mode #instructors h3 { color: #f0f0f0 !important; }
+body.dark-mode #instructors [style*="color:var(--black)"] { color: #f0f0f0 !important; }
+body.dark-mode #instructors [style*="color:var(--muted)"] { color: #999 !important; }
+body.dark-mode #instructors [style*="background:var(--white)"] { background: #1e1e1e !important; }
 body.dark-mode #instructors [style*="border:1.5px solid #d8d4cf"] { border-color: #333 !important; }
+body.dark-mode #instructors [style*="border-top:1px solid var(--border)"] { border-color: #333 !important; }
+
+/* 히어로 다크모드 */
+body.dark-mode #hero { background: #1a1a1a !important; }
+body.dark-mode #hero [style*="color:var(--black)"] { color: #f0f0f0 !important; }
+body.dark-mode #hero [style*="color:var(--muted)"] { color: #999 !important; }
+body.dark-mode .hero-desc { color: #ccc !important; }
+body.dark-mode .hero-tag { background: #222 !important; border-color: #333 !important; color: #ddd !important; }
+body.dark-mode .chip { background: #222 !important; border-color: #333 !important; color: #ddd !important; }
+body.dark-mode .btn-primary { background: var(--orange) !important; color: #fff !important; }
 
 /* 칩·태그 */
 body.dark-mode .chip { background:#222; border-color:#333; color:#ddd; }
@@ -1092,7 +1103,7 @@ body.dark-mode .mosaic-badge {
             </div>
             <div>
               <div style="font-size:9px;font-weight:700;color:var(--lime);background:#111;display:inline-block;padding:2px 7px;border-radius:20px;letter-spacing:0.05em;margin-bottom:4px;">VOCAL · MIXING</div>
-              <h3 style="font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:0.04em;line-height:1;margin:0 0 2px;">Jung Myung Sue</h3>
+              <h3 style="font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:0.04em;line-height:1;margin:0 0 2px;color:#111;">Jung Myung Sue</h3>
                             
             </div>
           </div>
@@ -1143,7 +1154,7 @@ body.dark-mode .mosaic-badge {
             </div>
             <div>
               <div style="font-size:9px;font-weight:700;color:var(--orange);letter-spacing:0.05em;margin-bottom:4px;">작곡 · 편곡 · 제작</div>
-              <h3 style="font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:0.04em;line-height:1;margin:0 0 2px;">Yoo Jung Geun</h3>
+              <h3 style="font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:0.04em;line-height:1;margin:0 0 2px;color:#111;">Yoo Jung Geun</h3>
                             
             </div>
           </div>
@@ -1179,7 +1190,7 @@ body.dark-mode .mosaic-badge {
             </div>
             <div>
               <div style="font-size:9px;font-weight:700;color:#4a90d9;letter-spacing:0.05em;margin-bottom:4px;">음향 제작</div>
-              <h3 style="font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:0.04em;line-height:1;margin:0 0 2px;">Lee Seung Hyun</h3>
+              <h3 style="font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:0.04em;line-height:1;margin:0 0 2px;color:#111;">Lee Seung Hyun</h3>
                           </div>
           </div>
         </div>
@@ -1610,19 +1621,44 @@ function toggleDarkMode() {
   const body = document.body;
   const isDark = body.classList.toggle('dark-mode');
   localStorage.setItem('wavus-theme', isDark ? 'dark' : 'light');
-  // 로고 SVG 색상 전환
-  const logoPaths = document.querySelectorAll('.nav-logo svg path');
-  logoPaths.forEach(p => p.setAttribute('fill', isDark ? '#c8f135' : '#ffffff'));
+  document.querySelectorAll('.nav-logo svg path').forEach(p => p.setAttribute('fill', isDark ? '#c8f135' : '#ffffff'));
 }
-// 저장된 테마 복원
+// 항상 라이트모드로 시작
+localStorage.removeItem('wavus-theme');
+localStorage.removeItem('wavus-theme-manual');
+
+/* ================================
+   ⏱ 자동 다크모드 (2분 비활성 시)
+   ================================ */
 (function() {
-  const saved = localStorage.getItem('wavus-theme');
-  if (saved === 'dark') {
-    document.body.classList.add('dark-mode');
-    document.addEventListener('DOMContentLoaded', () => {
-      document.querySelectorAll('.nav-logo svg path').forEach(p => p.setAttribute('fill','#c8f135'));
-    });
+  let autoTimer = null;
+  const AUTO_DELAY = 30 * 1000; // 30초
+
+  function startTimer() {
+    clearTimeout(autoTimer);
+    autoTimer = setTimeout(() => {
+      if (!document.body.classList.contains('dark-mode')) {
+        toggleDarkMode();
+      }
+    }, AUTO_DELAY);
   }
+
+  // 마우스·터치·키 입력 시 타이머 리셋 + 다크모드면 라이트로 복귀
+  function onActivity(e) {
+    // 로고 클릭은 제외 (toggleDarkMode가 직접 처리)
+    if (e.target.closest && e.target.closest('.nav-logo')) return;
+    if (document.body.classList.contains('dark-mode')) {
+      toggleDarkMode();
+    }
+    startTimer();
+  }
+
+  ['click','mousedown','touchstart','keydown','scroll'].forEach(e => {
+    document.addEventListener(e, onActivity, { passive: true });
+  });
+
+  // 페이지 로드 시 타이머 시작
+  startTimer();
 })();
 
 /* ================================
