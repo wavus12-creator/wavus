@@ -110,7 +110,11 @@ body.dark-mode .label-pill { background: #f0f0f0; color: #111; }
 body.dark-mode .btn-primary { background: var(--orange); color: #fff; }
 body.dark-mode .btn-primary:hover { background: #fff; color: var(--orange); }
 
-/* 다크모드 토글 힌트 */
+/* 로고 물결 애니메이션 */
+body.dark-mode #logoWave { opacity: 1 !important; }
+body.dark-mode #bottomWave { display: block !important; }
+body:not(.dark-mode) #bottomWave { display: none !important; }
+body:not(.dark-mode) #logoWave { opacity: 0 !important; }
 .logo-toggle-hint {
   position:absolute;
   top:calc(100% + 6px); left:0;
@@ -799,10 +803,28 @@ body.dark-mode .mosaic-badge {
 <nav>
   <a href="#" class="nav-logo" onclick="toggleDarkMode();return false;" title="테마 전환" style="position:relative;">
     <svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:inline-block;vertical-align:middle;margin-right:10px;">
-      <path d="M0 0 L0 17 L17 17 Q17 0 0 0 Z" fill="#ffffff"/>
-      <path d="M17 0 L17 17 L34 17 Q34 0 17 0 Z" fill="#ffffff"/>
-      <path d="M0 17 L0 34 L17 34 Q17 17 0 17 Z" fill="#ffffff"/>
-      <path d="M17 17 L17 34 L34 34 Q34 17 17 17 Z" fill="#ffffff"/>
+      <defs>
+        <clipPath id="logoClip">
+          <path d="M0 0 L0 17 L17 17 Q17 0 0 0 Z"/>
+          <path d="M17 0 L17 17 L34 17 Q34 0 17 0 Z"/>
+          <path d="M0 17 L0 34 L17 34 Q17 17 0 17 Z"/>
+          <path d="M17 17 L17 34 L34 34 Q34 17 17 17 Z"/>
+        </clipPath>
+        <linearGradient id="waveGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#E85A30"/>
+          <stop offset="25%" stop-color="#1E6FA5"/>
+          <stop offset="50%" stop-color="#c8f135"/>
+          <stop offset="75%" stop-color="#F4C0D1"/>
+          <stop offset="100%" stop-color="#E85A30"/>
+        </linearGradient>
+      </defs>
+      <!-- 기본 흰색 로고 -->
+      <path d="M0 0 L0 17 L17 17 Q17 0 0 0 Z" fill="#ffffff" class="logo-path"/>
+      <path d="M17 0 L17 17 L34 17 Q34 0 17 0 Z" fill="#ffffff" class="logo-path"/>
+      <path d="M0 17 L0 34 L17 34 Q17 17 0 17 Z" fill="#ffffff" class="logo-path"/>
+      <path d="M17 17 L17 34 L34 34 Q34 17 17 17 Z" fill="#ffffff" class="logo-path"/>
+      <!-- 다크모드 물결 오버레이 -->
+      <rect id="logoWave" x="-34" y="0" width="102" height="34" fill="url(#waveGrad)" clip-path="url(#logoClip)" opacity="0" style="animation:none;"/>
     </svg><span>WAVUS</span>
     <span class="logo-toggle-hint">테마 전환</span>
   </a>
@@ -901,7 +923,6 @@ body.dark-mode .mosaic-badge {
 
 </section>
 
-<!-- MARQUEE 제거됨 - 히어로 하단으로 이동 -->
 
 <!-- COURSES -->
 <section id="courses">
@@ -1027,7 +1048,7 @@ body.dark-mode .mosaic-badge {
       </div>
       <div style="background:#111;padding:10px 14px;border-left:3px solid var(--pink);border-bottom:1px solid rgba(255,255,255,0.06);">
         <div style="font-size:9px;color:rgba(255,255,255,0.3);letter-spacing:2px;margin-bottom:3px;">COMPRESSOR</div>
-        <div style="font-size:10px;font-weight:500;color:#fff;line-height:1.7;">Tube-Tech CL 1B<br>WesAudio NG78<br>WesAudio Dione · Elysia Xpressor<br>Elysia XMAX</div>
+        <div style="font-size:10px;font-weight:500;color:#fff;line-height:1.7;">Tube-Tech CL 1B<br>WesAudio NG78<br>WesAudio Dione<br>Elysia Xpressor<br>Elysia XMAX</div>
       </div>
       <div style="background:#111;padding:10px 14px;border-left:3px solid var(--lime);border-bottom:1px solid rgba(255,255,255,0.06);border-right:1px solid rgba(255,255,255,0.04);">
         <div style="font-size:9px;color:rgba(255,255,255,0.3);letter-spacing:2px;margin-bottom:3px;">SUMMING / BUS</div>
@@ -1051,13 +1072,13 @@ body.dark-mode .mosaic-badge {
       </div>
       <div style="background:#111;padding:10px 14px;border-left:3px solid var(--blue);border-bottom:1px solid rgba(255,255,255,0.06);">
         <div style="font-size:9px;color:rgba(255,255,255,0.3);letter-spacing:2px;margin-bottom:3px;">HEADPHONE AMP</div>
-        <div style="font-size:10px;font-weight:500;color:#fff;line-height:1.7;">Lake People G108 · Marantz PHA3</div>
+        <div style="font-size:10px;font-weight:500;color:#fff;line-height:1.7;">Lake People G108<br>Marantz PHA3</div>
       </div>
     </div>
 
     <div id="equipPhotos" style="display:grid;grid-template-columns:repeat(4,1fr);gap:3px;width:50%;align-content:start;">
       <div style="overflow:hidden;border-radius:6px;background:#1a1a1a;min-height:0;flex:1;">
-        <img src="photo_main3 .jpg" style="width:100%;height:100%;object-fit:cover;display:block;filter:brightness(0.92);">
+        <img src="photo_main3_.jpg" style="width:100%;height:100%;object-fit:cover;display:block;filter:brightness(0.92);">
       </div>
       <div style="overflow:hidden;border-radius:6px;background:#1a1a1a;">
         <img src="KakaoTalk_20260525_235701419_08.jpg" style="width:100%;height:100%;object-fit:cover;display:block;filter:brightness(0.92);">
@@ -1421,10 +1442,26 @@ body.dark-mode .mosaic-badge {
     <!-- 로고 SVG -->
     <div style="margin-bottom:32px;">
       <svg id="ledLogo" width="56" height="56" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <clipPath id="ledLogoClip">
+            <path d="M0 0 L0 17 L17 17 Q17 0 0 0 Z"/>
+            <path d="M17 0 L17 17 L34 17 Q34 0 17 0 Z"/>
+            <path d="M0 17 L0 34 L17 34 Q17 17 0 17 Z"/>
+            <path d="M17 17 L17 34 L34 34 Q34 17 17 17 Z"/>
+          </clipPath>
+          <linearGradient id="ledWaveGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#E85A30"/>
+            <stop offset="25%" stop-color="#1E6FA5"/>
+            <stop offset="50%" stop-color="#c8f135"/>
+            <stop offset="75%" stop-color="#F4C0D1"/>
+            <stop offset="100%" stop-color="#E85A30"/>
+          </linearGradient>
+        </defs>
         <path id="lp1" d="M0 0 L0 17 L17 17 Q17 0 0 0 Z" fill="rgba(255,255,255,0.9)"/>
         <path id="lp2" d="M17 0 L17 17 L34 17 Q34 0 17 0 Z" fill="rgba(255,255,255,0.9)"/>
         <path id="lp3" d="M0 17 L0 34 L17 34 Q17 17 0 17 Z" fill="rgba(255,255,255,0.9)"/>
         <path id="lp4" d="M17 17 L17 34 L34 34 Q34 17 17 17 Z" fill="rgba(255,255,255,0.9)"/>
+        <rect id="ledLogoWave" x="-34" y="0" width="102" height="34" fill="url(#ledWaveGrad)" clip-path="url(#ledLogoClip)" opacity="1"/>
       </svg>
     </div>
 
@@ -1623,7 +1660,55 @@ function toggleDarkMode() {
   localStorage.setItem('wavus-theme', isDark ? 'dark' : 'light');
   document.querySelectorAll('.nav-logo svg path').forEach(p => p.setAttribute('fill', isDark ? '#c8f135' : '#ffffff'));
 }
-// 항상 라이트모드로 시작
+// 로고 물결 애니메이션
+(function() {
+  let waveX = -34;
+  let waveRaf = null;
+  const speed = 0.15;
+
+  function animateWave() {
+    const wave = document.getElementById('logoWave');
+    const ledWave = document.getElementById('ledLogoWave');
+    if (!wave && !ledWave) return;
+    waveX += speed;
+    if (waveX > 34) waveX = -34;
+    if (wave) wave.setAttribute('x', waveX);
+    if (ledWave) ledWave.setAttribute('x', waveX);
+    waveRaf = requestAnimationFrame(animateWave);
+  }
+
+  // 항상 물결 실행 (회원창 로고는 항상)
+  document.addEventListener('DOMContentLoaded', () => {
+    waveRaf = requestAnimationFrame(animateWave);
+  });
+
+  const origToggle = window.toggleDarkMode;
+  window.toggleDarkMode = function() {
+    origToggle();
+    const isDark = document.body.classList.contains('dark-mode');
+    const wave = document.getElementById('logoWave');
+    if (wave) wave.style.opacity = isDark ? '1' : '0';
+    if (!waveRaf) {
+      waveX = -34;
+      waveRaf = requestAnimationFrame(animateWave);
+    }
+  };
+
+  const observer = new MutationObserver(() => {
+    const isDark = document.body.classList.contains('dark-mode');
+    const wave = document.getElementById('logoWave');
+    if (wave) wave.style.opacity = isDark ? '1' : '0';
+    if (!waveRaf) {
+      waveX = -34;
+      waveRaf = requestAnimationFrame(animateWave);
+    }
+  });
+  document.addEventListener('DOMContentLoaded', () => {
+    observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+    const wave = document.getElementById('logoWave');
+    if (wave) wave.style.opacity = '0';
+  });
+})();
 localStorage.removeItem('wavus-theme');
 localStorage.removeItem('wavus-theme-manual');
 
@@ -1844,6 +1929,32 @@ function initGateCanvas() {
     <span style="color:rgba(255,255,255,0.22);font-size:10px;letter-spacing:0.12em;margin-right:8px;">레코딩 스튜디오 .</span>충북 청주시 서원구 무심서로 383 B1
   </div>
 </footer>
+
+<!-- 맨아래 물결 -->
+<div id="bottomWave" style="position:fixed;bottom:0;left:0;width:100%;height:80px;overflow:hidden;pointer-events:none;z-index:998;display:none;">
+  <svg style="position:absolute;bottom:0;left:0;width:200%;height:100%;transform-origin:bottom center;animation:bottomWave1 12s ease-in-out infinite;" viewBox="0 0 2880 80" preserveAspectRatio="none">
+    <path d="M0,40 C120,10 240,70 360,40 C480,10 600,70 720,40 C840,10 960,70 1080,40 C1200,10 1320,70 1440,40 C1560,10 1680,70 1800,40 C1920,10 2040,70 2160,40 C2280,10 2400,70 2520,40 C2640,10 2760,70 2880,40 L2880,80 L0,80 Z" fill="#E85A30" opacity="0.7"/>
+  </svg>
+  <svg style="position:absolute;bottom:0;left:0;width:200%;height:100%;transform-origin:bottom center;animation:bottomWave2 16s ease-in-out infinite;" viewBox="0 0 2880 80" preserveAspectRatio="none">
+    <path d="M0,50 C180,20 360,70 540,50 C720,20 900,70 1080,50 C1260,20 1440,70 1620,50 C1800,20 1980,70 2160,50 C2340,20 2520,70 2700,50 C2790,35 2880,50 2880,50 L2880,80 L0,80 Z" fill="#1E6FA5" opacity="0.65"/>
+  </svg>
+  <svg style="position:absolute;bottom:0;left:0;width:200%;height:100%;transform-origin:bottom center;animation:bottomWave3 10s ease-in-out infinite;" viewBox="0 0 2880 80" preserveAspectRatio="none">
+    <path d="M0,58 C90,40 180,70 360,58 C540,40 720,70 900,58 C1080,40 1260,70 1440,58 C1620,40 1800,70 1980,58 C2160,40 2340,70 2520,58 C2700,40 2880,70 2880,58 L2880,80 L0,80 Z" fill="#c8f135" opacity="0.6"/>
+  </svg>
+  <svg style="position:absolute;bottom:0;left:0;width:200%;height:100%;transform-origin:bottom center;animation:bottomWave4 14s ease-in-out infinite;" viewBox="0 0 2880 80" preserveAspectRatio="none">
+    <path d="M0,65 C150,55 300,72 450,65 C600,55 750,72 900,65 C1050,55 1200,72 1350,65 C1500,55 1650,72 1800,65 C1950,55 2100,72 2250,65 C2400,55 2550,72 2700,65 C2800,60 2880,65 2880,65 L2880,80 L0,80 Z" fill="#111" opacity="0.85"/>
+  </svg>
+  <svg style="position:absolute;bottom:0;left:0;width:200%;height:100%;transform-origin:bottom center;animation:bottomWave5 8s ease-in-out infinite;" viewBox="0 0 2880 80" preserveAspectRatio="none">
+    <path d="M0,72 C120,65 240,76 360,72 C480,65 600,76 720,72 C840,65 960,76 1080,72 C1200,65 1320,76 1440,72 C1560,65 1680,76 1800,72 C1920,65 2040,76 2160,72 C2280,65 2400,76 2520,72 C2640,65 2760,76 2880,72 L2880,80 L0,80 Z" fill="#F4C0D1" opacity="0.45"/>
+  </svg>
+</div>
+<style>
+@keyframes bottomWave1 { 0%,100%{transform:translateX(0) scaleY(1)} 50%{transform:translateX(-25%) scaleY(0.4)} }
+@keyframes bottomWave2 { 0%,100%{transform:translateX(-50%) scaleY(0.5)} 50%{transform:translateX(-25%) scaleY(1)} }
+@keyframes bottomWave3 { 0%,100%{transform:translateX(0) scaleY(0.7)} 33%{transform:translateX(-17%) scaleY(1)} 66%{transform:translateX(-33%) scaleY(0.3)} }
+@keyframes bottomWave4 { 0%,100%{transform:translateX(-50%) scaleY(0.3)} 50%{transform:translateX(-25%) scaleY(0.9)} }
+@keyframes bottomWave5 { 0%,100%{transform:translateX(0) scaleY(1)} 40%{transform:translateX(-20%) scaleY(0.2)} 80%{transform:translateX(-40%) scaleY(0.8)} }
+</style>
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 // 파일 업로드 버튼 활성화
