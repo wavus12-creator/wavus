@@ -803,7 +803,7 @@ body.dark-mode .mosaic-badge {
 
 <!-- NAV -->
 <nav>
-  <a href="#" class="nav-logo" onclick="toggleDarkMode();return false;" title="테마 전환" style="position:relative;">
+  <a href="#" class="nav-logo" id="navLogo" title="테마 전환 / 길게 누르면 회원창" style="position:relative;">
     <svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:inline-block;vertical-align:middle;margin-right:10px;">
       <defs>
         <clipPath id="logoClip">
@@ -1662,6 +1662,47 @@ body.dark-mode .mosaic-badge {
 </style>
 
 <script>
+
+/* ================================
+   👆 로고 롱프레스 → 회원창
+   ================================ */
+(function() {
+  const logo = document.getElementById('navLogo');
+  if (!logo) return;
+  let pressTimer = null;
+  const LONG = 600; // 0.6초
+
+  function onStart(e) {
+    pressTimer = setTimeout(() => {
+      pressTimer = null;
+      // 롱프레스 → 회원창
+      const gate = document.getElementById('memberGate');
+      if (gate) gate.style.display = 'flex';
+    }, LONG);
+  }
+
+  function onEnd(e) {
+    if (pressTimer) {
+      clearTimeout(pressTimer);
+      pressTimer = null;
+      // 짧은 클릭 → 다크모드 토글
+      toggleDarkMode();
+    }
+    e.preventDefault();
+  }
+
+  function onCancel() {
+    if (pressTimer) { clearTimeout(pressTimer); pressTimer = null; }
+  }
+
+  logo.addEventListener('mousedown', onStart);
+  logo.addEventListener('mouseup', onEnd);
+  logo.addEventListener('mouseleave', onCancel);
+  logo.addEventListener('touchstart', onStart, { passive: true });
+  logo.addEventListener('touchend', onEnd);
+  logo.addEventListener('touchcancel', onCancel);
+})();
+
 /* ================================
    🌙 다크모드 토글
    ================================ */
