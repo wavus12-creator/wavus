@@ -47,28 +47,24 @@ body { transition: background 0.8s ease, color 0.8s ease; }
 body.dark-mode { background: var(--bg); color: var(--text); }
 
 /* 섹션 배경 */
-body.dark-mode #services { background: #1a1a1a; }
-body.dark-mode #courses { background: #141414; }
+body.dark-mode #services { background: #dedad4 !important; }
+body.dark-mode #courses { background: #dedad4 !important; }
 body.dark-mode #pricing { background: #141414; }
-body.dark-mode #contact { background: #0a0a0a; }
-body.dark-mode #instructors { background: #141414; }
-body.dark-mode #releases { background: #141414; }
-body.dark-mode #equipment { background: #0f0f0f; }
+body.dark-mode #contact { background: #1a1a1a; }
+body.dark-mode #instructors { background: #dedad4 !important; }
+body.dark-mode #releases { background: #dedad4 !important; }
+body.dark-mode #equipment { background: #dedad4 !important; }
 
 /* 코스 카드 */
-body.dark-mode .service-card.sc-1 { background: #1d2a00; }
-body.dark-mode .service-card.sc-2 { background: #2a1500; }
+
+
 body.dark-mode .service-card.sc-4 { background: #0a0a0a !important; border:1px solid #333; }
 body.dark-mode .service-card.sc-4 .service-card-name { color: #fff !important; }
 body.dark-mode .service-card.sc-4 p { color: rgba(255,255,255,0.7) !important; }
-body.dark-mode .service-card.sc-1,
-body.dark-mode .service-card.sc-2 { color: #f0f0f0; }
-body.dark-mode .service-card.sc-1 *,
-body.dark-mode .service-card.sc-2 * { color: rgba(255,255,255,0.85) !important; }
-body.dark-mode .service-card.sc-1 .service-card-name,
-body.dark-mode .service-card.sc-2 .service-card-name { color: #fff !important; }
-body.dark-mode .service-card.sc-1 [style*="color:#ff7c43"],
-body.dark-mode .service-card.sc-2 [style*="color:#ff7c43"] { color: #ff7c43 !important; }
+
+
+
+
 body.dark-mode .service-card.sc-1 [style*="color:var(--lime)"],
 body.dark-mode .service-card.sc-2 [style*="color:var(--lime)"] { color: var(--lime) !important; }
 body.dark-mode .service-card.sc-1 [style*="background:rgba(0,0,0"],
@@ -272,7 +268,7 @@ nav {
 
 /* MARQUEE */
 .marquee-wrap {
-  background: var(--black); padding: 8px 0;
+  background: #111; padding: 8px 0;
   overflow: hidden; margin: 0;
 }
 .marquee-track {
@@ -283,7 +279,7 @@ nav {
   display: flex; align-items: center; gap: 20px;
   padding: 0 24px;
   font-family: 'Bebas Neue', sans-serif;
-  font-size: 13px; letter-spacing: 0.08em; color: var(--white);
+  font-size: 13px; letter-spacing: 0.08em; color: #ffffff;
   white-space: nowrap;
 }
 .marquee-item .star { color: var(--lime); font-size: 14px; }
@@ -1136,13 +1132,13 @@ body.dark-mode .mosaic-badge {
           </div>
           <div style="background:#111;border-radius:9px;padding:6px 12px;">
             <div style="font-size:9px;font-weight:700;letter-spacing:0.1em;color:var(--lime);margin-bottom:4px;">지도 아티스트</div>
-            <div style="display:flex;flex-wrap:wrap;gap:2px 6px;font-size:9.5px;color:rgba(255,255,255,0.7);line-height:1.7;">
-              <span>비스트</span><span style="color:rgba(255,255,255,0.2);">·</span>
-              <span>케이시</span><span style="color:rgba(255,255,255,0.2);">·</span>
-              <span>맵식스(Map6)</span><span style="color:rgba(255,255,255,0.2);">·</span>
-              <span>박초롱(Apink)</span><span style="color:rgba(255,255,255,0.2);">·</span>
-              <span>신비(여자친구)</span><span style="color:rgba(255,255,255,0.2);">·</span>
-              <span>진진(ASTRO)</span><span style="color:rgba(255,255,255,0.2);">·</span>
+            <div style="display:flex;flex-wrap:wrap;gap:2px 6px;font-size:9.5px;color:#ffffff;line-height:1.7;">
+              <span>비스트</span><span style="color:rgba(255,255,255,0.6);">·</span>
+              <span>케이시</span><span style="color:rgba(255,255,255,0.6);">·</span>
+              <span>맵식스(Map6)</span><span style="color:rgba(255,255,255,0.6);">·</span>
+              <span>박초롱(Apink)</span><span style="color:rgba(255,255,255,0.6);">·</span>
+              <span>신비(여자친구)</span><span style="color:rgba(255,255,255,0.6);">·</span>
+              <span>진진(ASTRO)</span><span style="color:rgba(255,255,255,0.6);">·</span>
               <span>큐(THE BOYZ)</span>
             </div>
           </div>
